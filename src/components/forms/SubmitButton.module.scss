@@ -1,0 +1,25 @@
+.action {
+    display: flex;
+    justify-content: flex-end;
+
+    & button {
+        cursor: pointer;
+        line-height: 4rem;
+        padding: 0 2rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+        background-color: transparent;
+        border: .2rem solid var(--col-3rd-3);
+        border-radius: .5rem;
+        color: var(--col-3rd-2);
+        opacity: .7;
+        transform-origin: bottom right;
+        transition: .2s;
+
+        &:hover,
+        &:focus {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    }
+}

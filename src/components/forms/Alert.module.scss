@@ -1,0 +1,12 @@
+.Error,
+.Success {
+    margin-bottom: 3.2rem;
+    padding: 0 .5rem;
+    line-height: 4rem;
+}
+.Error {
+    background-color: var(--col-5th-1);
+}
+.Success {
+    background-color: var(--col-4th-1);
+}

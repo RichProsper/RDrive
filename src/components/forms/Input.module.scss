@@ -1,0 +1,59 @@
+.control {
+    position: relative;
+    margin-bottom: 3.2rem;
+
+    & input {
+        height: 4rem;
+        display: block;
+        width: 100%;
+        background-color: var(--col-1st-3);
+        border: none;
+        border-bottom: .1rem solid var(--col-1st-1);
+        color: var(--col-1st-1);
+        font-size: 1.6rem;
+        padding: 0 .5rem;
+
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover,
+        &:-webkit-autofill:focus {
+            box-shadow: 0 0 0 5rem var(--col-1st-2) inset;
+            -webkit-text-fill-color: var(--col-1st-1);
+        }
+        &::placeholder {
+            color: transparent;
+            user-select: none;
+        }
+        &:focus ~ span {
+            color: var(--col-3rd-2);
+        }
+        &:focus ~ span,
+        &:not(:placeholder-shown) ~ span {
+            opacity: 1;
+            transform: translateY(-2.4rem) scale(.75);
+        }
+    }
+    & span {
+        position: absolute;
+        top: 0;
+        left: .5rem;
+        opacity: .7;
+        line-height: 4rem;
+        pointer-events: none;
+        transform-origin: top left;
+        transition: .2s;
+    }
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: scaleX(0);
+        transition: 300ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+        border-bottom: .2rem solid var(--col-3rd-3);
+        pointer-events: none;
+    }
+    &.focused::after {
+        transform: scaleX(1);
+    }
+}
