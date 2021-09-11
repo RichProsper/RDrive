@@ -5,6 +5,7 @@ import Form from '../components/forms/Form'
 import Alert from '../components/forms/Alert'
 import Input from '../components/forms/Input'
 import SubmitButton from '../components/forms/SubmitButton'
+import classes from '../components/layouts/Layout.module.css'
 
 export default function Signup() {
     const { signup, errMsgSignUp, setErrMsgSignUp } = useAuthCtx()
@@ -20,7 +21,6 @@ export default function Signup() {
     const submitForm = async e => {
         e.preventDefault()
         const form = document.querySelector(`#${formId}`)
-        // console.log(form.email.value, form.pass.value, form.passConfirm.value)
         signup(form.email.value, form.pass.value, form.passConfirm.value)
     }    
 
@@ -60,8 +60,8 @@ export default function Signup() {
                 <SubmitButton text='Sign Up' />
             </Form>
 
-            <p>
-                Already have an account? <Link to="/signin">Sign In</Link>
+            <p className={classes.auth}>
+                Already have an account? <Link to="/signin" className={classes.link}>Sign In</Link>
             </p>
         </section>
     )

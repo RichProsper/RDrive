@@ -6,6 +6,7 @@ import AllContexts from "./contexts/AllContexts"
 import PrivateRoute from "./PrivateRoute"
 import PublicRoute from "./PublicRoute"
 import ResetPassword from "./pages/ResetPassword"
+import Layout from "./components/layouts/Layout";
 
 export default function App() {
     return (
@@ -13,9 +14,11 @@ export default function App() {
             <AllContexts>                                    
                 <Switch> {/* Switch Component ensures only one page is shown at a time */}
                     <PrivateRoute exact path="/" component={withRouter(Home)} />
-                    <PublicRoute path="/signup" component={withRouter(Signup)} />
-                    <PublicRoute path="/signin" component={withRouter(Signin)} />
-                    <PublicRoute path="/reset-password" component={withRouter(ResetPassword)} />
+                    <Layout>
+                        <PublicRoute path="/signup" component={withRouter(Signup)} />
+                        <PublicRoute path="/signin" component={withRouter(Signin)} />
+                        <PublicRoute path="/reset-password" component={withRouter(ResetPassword)} />
+                    </Layout>
                 </Switch>
             </AllContexts>
         </Router>
