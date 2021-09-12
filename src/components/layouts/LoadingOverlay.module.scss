@@ -1,0 +1,34 @@
+.LoadingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--col-1st-8);
+    backdrop-filter: blur(.5rem);
+    z-index: 1;
+
+    & .content {      
+        & .spinner-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+
+            & .spinner {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+                border: .3rem solid;
+                border-color: var(--col-3rd-3) var(--col-1st-7) var(--col-1st-7) var(--col-1st-7);
+                animation: spinner-spin 1s cubic-bezier(0.0, 0, 0.2, 1) infinite;
+            }
+        }
+    }
+}
+
+@keyframes spinner-spin {
+    to {transform: rotate(360deg);}
+}

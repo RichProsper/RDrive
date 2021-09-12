@@ -38,13 +38,9 @@
         }
     }
     & .auth {
-        margin-top: .5rem;
+        margin-top: 1.5rem;
         padding-top: 1rem;
         border-top: .1rem solid var(--col-1st-4);
-
-        &:last-child {
-            margin-top: 1.5rem;
-        }
     }
 
     @media only screen and (min-width: 500px) {

@@ -5,10 +5,11 @@ import Form from '../components/forms/Form'
 import Alert from '../components/forms/Alert'
 import Input from '../components/forms/Input'
 import SubmitButton from '../components/forms/SubmitButton'
+import LoadingOverlay from '../components/layouts/LoadingOverlay'
 import classes from '../components/layouts/Layout.module.css'
 
 export default function Signup() {
-    const { signup, errMsgSignUp, setErrMsgSignUp } = useAuthCtx()
+    const { signup, errMsgSignUp, setErrMsgSignUp, isLoading } = useAuthCtx()
     const formId = 'form'
 
     useEffect(() => {
@@ -63,6 +64,8 @@ export default function Signup() {
             <p className={classes.auth}>
                 Already have an account? <Link to="/signin" className={classes.link}>Sign In</Link>
             </p>
+
+            {isLoading && <LoadingOverlay />}
         </section>
     )
 }
