@@ -1,0 +1,21 @@
+.PublicNav {
+    height: var(--NavHeight);
+    background-color: var(--col-3rd-4);
+
+    & .logo {
+        display: inline-block;
+        line-height: var(--NavHeight);
+        color: inherit;
+        text-decoration: none;
+        font-size: 2rem;
+        font-weight: bold;
+        letter-spacing: .2rem;
+        padding: 0 2.4rem;
+        transition: .2s;
+
+        &:focus,
+        &:hover {
+            background-color: var(--col-3rd-5);
+        }
+    }
+}

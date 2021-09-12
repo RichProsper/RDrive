@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
+    --NavHeight : 5rem;
     // White: hsl(0, 0%, 100%)
     --col-1st   : 0, 0%;
     --col-1st-1 : hsl(var(--col-1st), 87%);
@@ -19,6 +20,8 @@
     --col-3rd-1 : hsl(var(--col-3rd), 100%, 49%);
     --col-3rd-2 : hsl(var(--col-3rd), 100%, 78%);
     --col-3rd-3 : hsl(var(--col-3rd), 100%, 54%);
+    --col-3rd-4 : hsl(var(--col-3rd), 100%, 39%);
+    --col-3rd-5 : hsl(var(--col-3rd), 100%, 29%);
     // Green: hsl(93, 98%, 35%)
     --col-4th   : 93;
     --col-4th-1 : hsl(var(--col-4th), 98%, 30%);

@@ -1,9 +1,13 @@
 import classes from './Layout.module.css'
+import PublicNav from './PublicNav'
 
 export default function Layout({ children }) {
     return (
-        <div className={classes.Layout}>
-            {children}
-        </div>
+        <>
+            <PublicNav />
+            <div className={classes.Layout}>
+                {children}
+            </div>
+        </>
     )
 }
