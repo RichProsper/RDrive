@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getDatabase, ref } from 'firebase/database'
+import { getFirestore, collection } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 
 // Initialize Firebase  
@@ -13,5 +13,11 @@ const firebase = initializeApp({
     appId: "1:677929437283:web:0b503ebc197eb305019056"
 })
 
-export default ref(getDatabase(firebase))
+const db = getFirestore(firebase)
+const firestoreDb = {
+    folders: collection(db, "folders"),
+    files: collection(db, "files")
+}
+
+export default firestoreDb
 export const auth = getAuth(firebase)

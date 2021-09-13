@@ -3,6 +3,8 @@ import classes from './AddFolderButton.module.css'
 import Modal from '../layouts/Modal'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+import firestoreDb from '../../firebase'
+import { addDoc } from '@firebase/firestore'
 
 export default function AddFolderButton() {
     const [modal, setModal] = useState(false)
@@ -16,8 +18,11 @@ export default function AddFolderButton() {
      */
     const addFolder = e => {
         e.preventDefault()
+
         const form = document.querySelector(`#${formId}`)
-        console.log(form.folderName.value)
+        console.log( addDoc(firestoreDb.folders, { name: form.folderName.value}) )
+
+        closeModal()
     }
 
     return (
