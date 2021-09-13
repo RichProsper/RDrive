@@ -12,6 +12,9 @@
     --col-1st-6 : hsla(var(--col-1st), 0%, .75);
     --col-1st-7 : hsl(var(--col-1st), 0%);
     --col-1st-8 : hsla(var(--col-1st), 2%, .5);
+    --col-1st-9 : hsla(var(--col-1st), 10%, .5);
+    --col-1st-10 : hsl(var(--col-1st), 13%);
+    --col-1st-11 : hsl(var(--col-1st), 33%);
     // Dark Blue Grey: hsl(220, 13%, 18%)
     --col-2nd   : 220;
     --col-2nd-1 : hsl(var(--col-2nd), 13%, 15%);
@@ -22,9 +25,11 @@
     --col-3rd-3 : hsl(var(--col-3rd), 100%, 54%);
     --col-3rd-4 : hsl(var(--col-3rd), 100%, 39%);
     --col-3rd-5 : hsl(var(--col-3rd), 100%, 29%);
+    --col-3rd-6 : hsl(var(--col-3rd), 100%, 64%);
     // Green: hsl(93, 98%, 35%)
     --col-4th   : 93;
     --col-4th-1 : hsl(var(--col-4th), 98%, 30%);
+    --col-4th-2 : hsl(var(--col-4th), 98%, 40%);
     // Dark Red: hsl(349, 84%, 53%)
     --col-5th   : 349;
     --col-5th-1 : hsl(var(--col-5th), 84%, 43%);

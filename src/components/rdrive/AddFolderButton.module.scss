@@ -1,0 +1,16 @@
+.AddFolder {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: 2rem;
+    padding: .8rem;
+    border: .2rem solid currentColor;
+    border-radius: .4rem;
+    transition: .2s;
+
+    &:focus,
+    &:hover {
+        color: var(--col-4th-2);
+    }
+}
