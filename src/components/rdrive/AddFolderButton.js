@@ -5,9 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons'
 import firestoreDb from '../../firebase'
 import { addDoc } from '@firebase/firestore'
+import useAuthCtx from '../../contexts/AuthContext'
 
-export default function AddFolderButton() {
+export default function AddFolderButton({ currentFolder }) {
     const [modal, setModal] = useState(false)
+    const { currentUser } = useAuthCtx()
     const formId = "formAddFolder"
 
     const openModal = () => setModal(true)
@@ -19,8 +21,19 @@ export default function AddFolderButton() {
     const addFolder = e => {
         e.preventDefault()
 
+        if (currentFolder === null) {
+            closeModal()
+            return
+        }
+
         const form = document.querySelector(`#${formId}`)
-        console.log( addDoc(firestoreDb.folders, { name: form.folderName.value}) )
+        const result = addDoc(firestoreDb.folders, {
+            name: form.folderName.value,
+            userId: currentUser.uid,
+            createdAt: firestoreDb.getTimestamp(),
+            parentId: currentFolder.id
+        })
+        console.log(result)
 
         closeModal()
     }
