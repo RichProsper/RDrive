@@ -21,11 +21,6 @@ export default function AddFolderButton({ currentFolder }) {
     const addFolder = e => {
         e.preventDefault()
 
-        if (currentFolder === null) {
-            closeModal()
-            return
-        }
-
         const form = document.querySelector(`#${formId}`)
         const result = addDoc(firestoreDb.folders, {
             name: form.folderName.value,
