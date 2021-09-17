@@ -17,7 +17,10 @@ const db = getFirestore(firebase)
 const firestoreDb = {
     folders: collection(db, "folders"),
     files: collection(db, "files"),
-    getTimestamp: serverTimestamp
+    getTimestamp: serverTimestamp,
+    getDocData: doc => {
+        return { id: doc.id, ...doc.data() }
+    }
 }
 
 export default firestoreDb

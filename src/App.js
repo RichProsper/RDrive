@@ -14,6 +14,8 @@ export default function App() {
             <AllContexts>                                    
                 <Switch> {/* Switch Component ensures only one page is shown at a time */}
                     <PrivateRoute exact path="/" component={withRouter(Home)} />
+                    <PrivateRoute exact path="/folder/:folderId" component={withRouter(Home)} />
+
                     <Layout>
                         <PublicRoute path="/signup" component={withRouter(Signup)} />
                         <PublicRoute path="/signin" component={withRouter(Signin)} />

@@ -1,10 +1,12 @@
 import { useReducer, useEffect } from "react"
 import firestoreDb from "../../firebase"
-import { doc, getDoc } from "@firebase/firestore"
+import { doc, getDoc, query, where, onSnapshot, orderBy } from "@firebase/firestore"
+import useAuthCtx from "../../contexts/AuthContext"
 
 const ACTIONS = {
     SELECT_FOLDER: 'select-folder',
-    UPDATE_FOLDER: 'update-folder'
+    UPDATE_FOLDER: 'update-folder',
+    SET_CHILD_FOLDERS: 'set-child-folders'
 }
 
 const ROOT_FOLDER = { name: 'Root', id: null, path: [] }
@@ -16,13 +18,19 @@ const reducer = (state, { type, payload }) => {
                 folderId: payload.folderId,
                 folder: payload.folder,
                 childFolders: [],
-                childFiles: []
+                childFiles: [],
             }
 
         case ACTIONS.UPDATE_FOLDER :
             return {
                 ...state,
-                folder: payload.folder
+                folder: payload.folder,
+            }
+
+        case ACTIONS.SET_CHILD_FOLDERS :
+            return {
+                ...state,
+                childFolders: payload.childFolders,
             }
 
         default :
@@ -31,11 +39,12 @@ const reducer = (state, { type, payload }) => {
 }
 
 export default function useFolder(folderId = null, folder = null) {
+    const { currentUser } = useAuthCtx()
     const [state, dispatch] = useReducer(reducer, {
         folderId,
         folder,
         childFolders: [],
-        childFiles: []
+        childFiles: [],
     })
 
     useEffect(() => {
@@ -52,26 +61,43 @@ export default function useFolder(folderId = null, folder = null) {
         if (folderId === null) {
             return dispatch({
                 type: ACTIONS.UPDATE_FOLDER,
-                payload: {
-                    folderId,
-                    folder: ROOT_FOLDER
-                }
+                payload: { folder: ROOT_FOLDER }
             })
         }
 
-        // console.log( getDoc(doc(firestoreDb.folders, folderId)) )
         getDoc(doc(firestoreDb.folders, folderId)).then(doc => {
-            console.log(doc.data())
+            return dispatch({
+                type: ACTIONS.UPDATE_FOLDER,
+                payload: { folder: firestoreDb.getDocData(doc) }
+            })
         }).catch(() => {
             dispatch({
                 type: ACTIONS.UPDATE_FOLDER,
-                payload: {
-                    folderId,
-                    folder: ROOT_FOLDER
-                }
+                payload: { folder: ROOT_FOLDER }
             })
         })
     }, [folderId])
+
+    useEffect(() => {        
+        const q = query(
+            firestoreDb.folders,
+            where('userId', '==', currentUser.uid),
+            where('parentId', '==', folderId),
+            orderBy('createdAt')
+        )
+
+        const unsubscribe = onSnapshot(q, querySnapshot => {
+            const childFolders = []
+            querySnapshot.forEach( doc => childFolders.push( firestoreDb.getDocData(doc) ) )
+
+            dispatch({
+                type: ACTIONS.SET_CHILD_FOLDERS,
+                payload: { childFolders }
+            }) 
+        })
+
+        return unsubscribe
+    }, [folderId, currentUser])
 
     return state
 }

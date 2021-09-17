@@ -22,14 +22,13 @@ export default function AddFolderButton({ currentFolder }) {
         e.preventDefault()
 
         const form = document.querySelector(`#${formId}`)
-        const result = addDoc(firestoreDb.folders, {
+        addDoc(firestoreDb.folders, {
             name: form.folderName.value,
             userId: currentUser.uid,
             createdAt: firestoreDb.getTimestamp(),
             parentId: currentFolder.id
         })
-        console.log(result)
-
+        
         closeModal()
     }
 
