@@ -1,18 +1,27 @@
+import classes from './Home.module.css'
 import PrivateNav from '../components/layouts/PrivateNav'
 import AddFolderButton from '../components/rdrive/AddFolderButton'
+import AddFileButton from '../components/rdrive/AddFileButton'
 import Folder from '../components/rdrive/Folder'
 import useFolder from '../components/hooks/useFolder'
-import { useParams } from 'react-router'
+import { useParams, useLocation } from 'react-router'
+import FolderPath from '../components/rdrive/FolderPath'
 
 export default function Home() {
     const { folderId } = useParams()
-    const { folder, childFolders } = useFolder(folderId)
+    const { state = {} } = useLocation()
+    const { folder, childFolders } = useFolder(folderId, state.folder)
 
     return (
         <section>
             <PrivateNav />
-            
-            <AddFolderButton currentFolder={folder} />
+            <div className={classes.container}>
+                <FolderPath currentFolder={folder} />
+                <div className={classes.btns}>
+                    <AddFolderButton currentFolder={folder} />
+                    <AddFileButton currentFolder={folder} />
+                </div>
+            </div>
 
             {childFolders.length > 0 && childFolders.map(childFolder => {
                 return <Folder key={childFolder.id} folder={childFolder} />

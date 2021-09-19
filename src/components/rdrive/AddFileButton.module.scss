@@ -1,9 +1,9 @@
-.AddFolder {
+.AddFile {
     background: none;
     cursor: pointer;
     color: inherit;
     font-size: 2rem;
-    padding: .8rem;
+    padding: .9rem 1.05rem;
     border: .2rem solid currentColor;
     border-radius: .4rem;
     transition: .2s;
@@ -11,5 +11,8 @@
     &:focus,
     &:hover {
         color: var(--col-3rd-2);
+    }
+    & input {
+        display: none;
     }
 }

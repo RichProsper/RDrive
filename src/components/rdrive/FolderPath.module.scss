@@ -1,0 +1,42 @@
+.FolderPath {
+    display: flex;
+
+    & .item {
+        display: flex;
+        align-items: center;
+
+        & .foldername {
+            max-width: 10rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: inherit;
+            text-decoration: none;
+            padding: 0 .8rem;
+            border-radius: .4rem;
+            transition: .2s;
+
+            &:focus,
+            &:hover {
+                background-color: var(--col-2nd-2);
+            }
+        }
+        & .chevron {
+            position: relative;
+            height: 100%;
+            font-size: .8rem;
+            margin: 0 .8rem;
+            color: var(--col-1st-4);
+
+            & svg {
+                position: absolute;
+                top: 55%;
+                left: -.2rem;
+                transform: translateY(-50%);
+            }
+        }
+        &:first-child .foldername {
+            margin-left: -.8rem;
+        }
+    }
+}

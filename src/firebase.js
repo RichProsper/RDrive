@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, serverTimestamp } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
+import { getStorage } from 'firebase/storage'
 
 // Initialize Firebase  
 const firebase = initializeApp({
@@ -25,3 +26,4 @@ const firestoreDb = {
 
 export default firestoreDb
 export const auth = getAuth(firebase)
+export const storage = getStorage(firebase)
