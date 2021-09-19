@@ -2,10 +2,13 @@ import classes from './AddFileButton.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { ROOT_FOLDER } from '../hooks/useFolder'
-// import useAuthCtx from '../../contexts/AuthContext'
+import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage'
+import { addDoc } from '@firebase/firestore'
+import firestoreDb, { storage } from '../../firebase'
+import useAuthCtx from '../../contexts/AuthContext'
 
 export default function AddFileButton({ currentFolder }) {
-    // const { currentUser } = useAuthCtx()
+    const { currentUser } = useAuthCtx()
 
     /**
      * @param {InputEvent} e 
@@ -13,12 +16,34 @@ export default function AddFileButton({ currentFolder }) {
     const uploadFile = e => {
         const file = e.target.files[0]
         if (file) {
-            const filePath = currentFolder.path.length > 0 ? 
-                `${currentFolder.path.join('/')}/${currentFolder.name}/${file.name}` :
-                (
-                    currentFolder !== ROOT_FOLDER ? `Root/${currentFolder.name}/${file.name}` : `Root/${file.name}`
-                )
-            console.log(filePath)
+            let filePath = `/files/${currentUser.uid}/`
+
+            if (currentFolder.path.length > 0) {
+                currentFolder.path.forEach(folder => filePath += `${folder.name}/`)
+                filePath += `${currentFolder.name}/${file.name}`
+            }
+            else if (currentFolder !== ROOT_FOLDER) {
+                filePath += `${currentFolder.name}/${file.name}`
+            }
+            else {
+                filePath += file.name
+            }
+
+            const uploadTask = uploadBytesResumable(ref(storage, filePath), file)
+
+            uploadTask.on('state_changed', snapshot => {
+
+            }, e => console.log(e), () => {
+                getDownloadURL(uploadTask.snapshot.ref).then(url => {
+                    addDoc(firestoreDb.files, {
+                        name: file.name,
+                        url,
+                        createdAt: firestoreDb.getTimestamp(),
+                        folderId: currentFolder.id,
+                        userId: currentUser.uid
+                    }).catch(e => console.log(e))
+                })
+            })
         }
     }
 

@@ -10,7 +10,7 @@ import FolderPath from '../components/rdrive/FolderPath'
 export default function Home() {
     const { folderId } = useParams()
     const { state = {} } = useLocation()
-    const { folder, childFolders } = useFolder(folderId, state.folder)
+    const { folder, childFolders, childFiles } = useFolder(folderId, state.folder)
 
     return (
         <section>

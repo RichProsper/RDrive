@@ -6,7 +6,8 @@ import useAuthCtx from "../../contexts/AuthContext"
 const ACTIONS = {
     SELECT_FOLDER: 'select-folder',
     UPDATE_FOLDER: 'update-folder',
-    SET_CHILD_FOLDERS: 'set-child-folders'
+    SET_CHILD_FOLDERS: 'set-child-folders',
+    SET_CHILD_FILES: 'set-child-files'
 }
 
 export const ROOT_FOLDER = { name: 'Root', id: null, path: [] }
@@ -31,6 +32,12 @@ const reducer = (state, { type, payload }) => {
             return {
                 ...state,
                 childFolders: payload.childFolders,
+            }
+
+        case ACTIONS.SET_CHILD_FILES :
+            return {
+                ...state,
+                childFiles: payload.childFiles,
             }
 
         default :
@@ -93,6 +100,27 @@ export default function useFolder(folderId = null, folder = null) {
             dispatch({
                 type: ACTIONS.SET_CHILD_FOLDERS,
                 payload: { childFolders }
+            }) 
+        })
+
+        return unsubscribe
+    }, [folderId, currentUser])
+
+    useEffect(() => {        
+        const q = query(
+            firestoreDb.files,
+            where('userId', '==', currentUser.uid),
+            where('folderId', '==', folderId),
+            orderBy('createdAt')
+        )
+
+        const unsubscribe = onSnapshot(q, querySnapshot => {
+            const childFiles = []
+            querySnapshot.forEach( doc => childFiles.push( firestoreDb.getDocData(doc) ) )
+
+            dispatch({
+                type: ACTIONS.SET_CHILD_FILES,
+                payload: { childFiles }
             }) 
         })
 
