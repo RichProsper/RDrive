@@ -6,9 +6,15 @@ import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage'
 import { addDoc } from '@firebase/firestore'
 import firestoreDb, { storage } from '../../firebase'
 import useAuthCtx from '../../contexts/AuthContext'
+import { useState, useEffect } from 'react'
 
 export default function AddFileButton({ currentFolder }) {
     const { currentUser } = useAuthCtx()
+    const [progress, setProgress] = useState(-1)
+
+    useEffect(() => {
+        if (progress > -1) console.log(progress)
+    }, [progress])
 
     /**
      * @param {InputEvent} e 
@@ -32,7 +38,8 @@ export default function AddFileButton({ currentFolder }) {
             const uploadTask = uploadBytesResumable(ref(storage, filePath), file)
 
             uploadTask.on('state_changed', snapshot => {
-
+                const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                setProgress(uploadProgress)
             }, e => console.log(e), () => {
                 getDownloadURL(uploadTask.snapshot.ref).then(url => {
                     addDoc(firestoreDb.files, {
