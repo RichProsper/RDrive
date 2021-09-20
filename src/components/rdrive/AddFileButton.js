@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload } from '@fortawesome/free-solid-svg-icons'
 import { ROOT_FOLDER } from '../hooks/useFolder'
 import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage'
-import { addDoc } from '@firebase/firestore'
+import { addDoc, query, where, getDocs, updateDoc } from '@firebase/firestore'
 import firestoreDb, { storage } from '../../firebase'
 import useAuthCtx from '../../contexts/AuthContext'
 import { useState, useEffect } from 'react'
 
-export default function AddFileButton({ currentFolder }) {
+export default function AddFileButton({ currentFolder, childFiles }) {
     const { currentUser } = useAuthCtx()
     const [progress, setProgress] = useState(-1)
 
@@ -21,45 +21,64 @@ export default function AddFileButton({ currentFolder }) {
      */
     const uploadFile = e => {
         const file = e.target.files[0]
-        if (file) {
-            let filePath = `/files/${currentUser.uid}/`
 
-            if (currentFolder.path.length > 0) {
-                currentFolder.path.forEach(folder => filePath += `${folder.name}/`)
-                filePath += `${currentFolder.name}/${file.name}`
-            }
-            else if (currentFolder !== ROOT_FOLDER) {
-                filePath += `${currentFolder.name}/${file.name}`
-            }
-            else {
-                filePath += file.name
-            }
+        if (!file) return
 
-            const uploadTask = uploadBytesResumable(ref(storage, filePath), file)
+        let filePath = `/files/${currentUser.uid}/`
 
-            uploadTask.on('state_changed', snapshot => {
-                const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                setProgress(uploadProgress)
-            }, e => console.log(e), () => {
-                getDownloadURL(uploadTask.snapshot.ref).then(url => {
-                    addDoc(firestoreDb.files, {
-                        name: file.name,
-                        url,
-                        createdAt: firestoreDb.getTimestamp(),
-                        folderId: currentFolder.id,
-                        userId: currentUser.uid
-                    }).catch(e => console.log(e))
+        if (currentFolder.path.length > 0) {
+            currentFolder.path.forEach(folder => filePath += `${folder.name}/`)
+            filePath += `${currentFolder.name}/${file.name}`
+        }
+        else if (currentFolder !== ROOT_FOLDER) {
+            filePath += `${currentFolder.name}/${file.name}`
+        }
+        else {
+            filePath += file.name
+        }
+
+        const uploadTask = uploadBytesResumable(ref(storage, filePath), file)
+
+        uploadTask.on('state_changed', snapshot => {
+            const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            setProgress(uploadProgress)
+        }, e => console.log(e), () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(url => {
+                const q = query(
+                    firestoreDb.files,
+                    where('userId', '==', currentUser.uid),
+                    where("name", "==", file.name),
+                    where("folderId", "==", currentFolder.id)
+                )
+
+                getDocs(q).then(snapshot => {
+                    const existingFile = snapshot.docs[0]
+
+                    if (existingFile) {
+                        updateDoc(existingFile.ref, {
+                            url,
+                            modifiedAt: firestoreDb.getTimestamp()
+                        })
+                    }
+                    else {
+                        addDoc(firestoreDb.files, {
+                            name: file.name,
+                            url,
+                            createdAt: firestoreDb.getTimestamp(),
+                            modifiedAt: firestoreDb.getTimestamp(),
+                            folderId: currentFolder.id,
+                            userId: currentUser.uid
+                        }).catch(e => console.log(e))        
+                    }
                 })
             })
-        }
+        })
     }
 
     return (
-        <>
-            <label className={classes.AddFile} title='Add New File'>
-                <FontAwesomeIcon icon={faFileUpload} />
-                <input type="file" onChange={uploadFile} />
-            </label>
-        </>
+        <label className={classes.AddFile} title='Add New File'>
+            <FontAwesomeIcon icon={faFileUpload} />
+            <input type="file" onChange={uploadFile} />
+        </label>
     )
 }

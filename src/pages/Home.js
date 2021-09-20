@@ -20,7 +20,7 @@ export default function Home() {
                 <FolderPath currentFolder={folder} />
                 <div className={classes.btns}>
                     <AddFolderButton currentFolder={folder} />
-                    <AddFileButton currentFolder={folder} />
+                    <AddFileButton currentFolder={folder} childFiles={childFiles} />
                 </div>
             </div>
 
@@ -37,10 +37,12 @@ export default function Home() {
 
 /*
     TO DO 
-    1) Handle File Path length
-    2) Handle Clicking on Root twice error
-    3) Create File upload progress component
-    4) Delete Folders & Files
-    5) Display logged in user info
-    6) Display icon based on file extension
+    - Handle File Path length
+    - Handle Clicking on Root twice error
+    - Create File upload progress component
+    - Delete Folders & Files
+    - Update Folder & File names
+    - Display Last Modified & Size colums for Folders & Files
+    - Display logged in user info
+    - Display icon based on file extension
 */
