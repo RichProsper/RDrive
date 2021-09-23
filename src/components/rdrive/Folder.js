@@ -6,10 +6,7 @@ import { faFolder } from '@fortawesome/free-solid-svg-icons'
 export default function Folder({ folder }) {
     return (
         <Link
-            to={{
-                pathname: `/folder/${folder.id}`,
-                state: { folder }
-            }}
+            to={`/folder/${folder.id}`}
             className={classes.Folder}
         >
             <FontAwesomeIcon icon={faFolder} /> {folder.name}

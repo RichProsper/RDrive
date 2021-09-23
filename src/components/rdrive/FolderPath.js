@@ -25,10 +25,7 @@ export default function FolderPath({ currentFolder }) {
             {path.map((folder, index) => (
                 <div key={index} id={index} className={classes.item}>
                     <Link
-                        to={{
-                            pathname: folder.id ? `/folder/${folder.id}` : '/',
-                            state: { folder: { ...folder, path: path.slice(1, index) } }
-                        }}
+                        to={folder.id ? `/folder/${folder.id}` : '/'}
                         className={classes.foldername}
                         title={folder.name}
                     >

@@ -5,13 +5,12 @@ import AddFileButton from '../components/rdrive/AddFileButton'
 import Folder from '../components/rdrive/Folder'
 import File from '../components/rdrive/File'
 import useFolder from '../components/hooks/useFolder'
-import { useParams, useLocation } from 'react-router'
+import { useParams } from 'react-router'
 import FolderPath from '../components/rdrive/FolderPath'
 
 export default function Home() {
     const { folderId } = useParams()
-    const { state = {} } = useLocation()
-    const { folder, childFolders, childFiles } = useFolder(folderId, state.folder)
+    const { folder, childFolders, childFiles } = useFolder(folderId)
 
     return (
         <section>
@@ -38,11 +37,11 @@ export default function Home() {
 /*
     TO DO 
     - Handle File Path length
-    - Handle Clicking on Root twice error
     - Create File upload progress component
     - Delete Folders & Files
     - Update Folder & File names
     - Display Last Modified & Size colums for Folders & Files
     - Display logged in user info
     - Display icon based on file extension
+    - Redirect after Password Reset
 */
