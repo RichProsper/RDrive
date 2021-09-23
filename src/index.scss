@@ -15,6 +15,7 @@
     --col-1st-9 : hsla(var(--col-1st), 10%, .75);
     --col-1st-10 : hsl(var(--col-1st), 13%);
     --col-1st-11 : hsl(var(--col-1st), 33%);
+    --col-1st-12 : hsl(var(--col-1st), 5%);
     // Dark Blue Grey: hsl(220, 13%, 18%)
     --col-2nd   : 220;
     --col-2nd-1 : hsl(var(--col-2nd), 13%, 12%);
@@ -75,13 +76,13 @@ body {
     height: 10px;
 
     &-track {
-        background: var(--col-1st-1);
+        background: var(--col-1st-12);
     }
     &-thumb {
-        background: var(--col-1st-2);
+        background: var(--col-1st-4);
 
         &:hover {
-            background: var(--col-1st-3); 
+            background: var(--col-1st-11); 
         }
     }
 }

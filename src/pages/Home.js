@@ -36,7 +36,6 @@ export default function Home() {
 
 /*
     TO DO 
-    - Handle File Path length
     - Create File upload progress component
     - Delete Folders & Files
     - Update Folder & File names

@@ -1,9 +1,12 @@
 .FolderPath {
     display: flex;
+    overflow-x: auto;
+    width: calc(100% - 2rem - 4rem - 1rem - 4rem);
 
     & .item {
         display: flex;
         align-items: center;
+        padding: .4rem 0;
 
         & .foldername {
             max-width: 10rem;
@@ -38,5 +41,9 @@
         &:first-child .foldername {
             margin-left: -.8rem;
         }
+    }
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
     }
 }
