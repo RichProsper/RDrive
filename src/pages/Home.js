@@ -19,7 +19,7 @@ export default function Home() {
                 <FolderPath currentFolder={folder} />
                 <div className={classes.btns}>
                     <AddFolderButton currentFolder={folder} />
-                    <AddFileButton currentFolder={folder} childFiles={childFiles} />
+                    <AddFileButton currentFolder={folder} />
                 </div>
             </div>
 

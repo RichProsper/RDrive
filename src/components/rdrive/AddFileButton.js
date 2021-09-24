@@ -8,7 +8,7 @@ import firestoreDb, { storage } from '../../firebase'
 import useAuthCtx from '../../contexts/AuthContext'
 import { useState, useEffect } from 'react'
 
-export default function AddFileButton({ currentFolder, childFiles }) {
+export default function AddFileButton({ currentFolder }) {
     const { currentUser } = useAuthCtx()
     const [progress, setProgress] = useState(-1)
 
@@ -42,7 +42,9 @@ export default function AddFileButton({ currentFolder, childFiles }) {
         uploadTask.on('state_changed', snapshot => {
             const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
             setProgress(uploadProgress)
-        }, e => console.log(e), () => {
+        },
+        e => console.log(e),
+        () => {
             getDownloadURL(uploadTask.snapshot.ref).then(url => {
                 const q = query(
                     firestoreDb.files,
