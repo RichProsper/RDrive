@@ -36,7 +36,6 @@ export default function Home() {
 
 /*
     TO DO 
-    - Create File upload progress component
     - Delete Folders & Files
     - Update Folder & File names
     - Display Last Modified & Size colums for Folders & Files

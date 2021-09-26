@@ -6,15 +6,14 @@ import { ref, uploadBytesResumable, getDownloadURL } from '@firebase/storage'
 import { addDoc, query, where, getDocs, updateDoc } from '@firebase/firestore'
 import firestoreDb, { storage } from '../../firebase'
 import useAuthCtx from '../../contexts/AuthContext'
-import { useState, useEffect } from 'react'
+import Toast from '../layouts/Toast'
+import { useState } from 'react'
 
 export default function AddFileButton({ currentFolder }) {
     const { currentUser } = useAuthCtx()
-    const [progress, setProgress] = useState(-1)
-
-    useEffect(() => {
-        if (progress > -1) console.log(progress)
-    }, [progress])
+    const [isUploading, setIsUploading] = useState(false)
+    const [fileName, setFileName] = useState('')
+    const [progress, setProgress] = useState(0)
 
     /**
      * @param {InputEvent} e 
@@ -37,11 +36,21 @@ export default function AddFileButton({ currentFolder }) {
             filePath += file.name
         }
 
+        setFileName(file.name)
         const uploadTask = uploadBytesResumable(ref(storage, filePath), file)
 
         uploadTask.on('state_changed', snapshot => {
-            const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            setProgress(uploadProgress)
+            setProgress( (snapshot.bytesTransferred / snapshot.totalBytes) * 100 )
+
+            if (snapshot.bytesTransferred === snapshot.totalBytes) {
+                setTimeout(() => {
+                    setIsUploading(false)
+                    setFileName('')
+                }, 1000);
+            }
+            else if (!isUploading) {
+                setIsUploading(true)
+            }
         },
         e => console.log(e),
         () => {
@@ -78,9 +87,13 @@ export default function AddFileButton({ currentFolder }) {
     }
 
     return (
-        <label className={classes.AddFile} title='Add New File'>
-            <FontAwesomeIcon icon={faFileUpload} />
-            <input type="file" onChange={uploadFile} />
-        </label>
+        <>
+            <label className={classes.AddFile} title='Add New File'>
+                <FontAwesomeIcon icon={faFileUpload} />
+                <input type="file" onChange={uploadFile} />
+            </label>
+
+            {isUploading && <Toast fileName={fileName} progress={progress} />}
+        </>
     )
 }
