@@ -38,7 +38,6 @@ export default function Home() {
     TO DO 
     - Display Last Modified & Size colums for Folders & Files
     - Display icon based on file extension
-    - Redirect after Password Reset
     - Delete Folders & Files
     - Update Folder & File names
 */
