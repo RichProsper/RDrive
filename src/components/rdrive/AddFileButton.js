@@ -7,13 +7,21 @@ import { addDoc, query, where, getDocs, updateDoc } from '@firebase/firestore'
 import firestoreDb, { storage } from '../../firebase'
 import useAuthCtx from '../../contexts/AuthContext'
 import Toast from '../layouts/Toast'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 export default function AddFileButton({ currentFolder }) {
     const { currentUser } = useAuthCtx()
     const [isUploading, setIsUploading] = useState(false)
     const [fileName, setFileName] = useState('')
     const [progress, setProgress] = useState(0)
+    const fileInput = useRef()
+
+    /**
+     * @param {KeyboardEvent} e 
+     */
+    const openFileInput = e => {
+        fileInput.current.click()
+    }
 
     /**
      * @param {InputEvent} e 
@@ -88,9 +96,14 @@ export default function AddFileButton({ currentFolder }) {
 
     return (
         <>
-            <label className={classes.AddFile} title='Add New File'>
+            <label
+                tabIndex="0"
+                className={classes.AddFile}
+                title='Add New File'
+                onKeyPress={openFileInput}
+            >
                 <FontAwesomeIcon icon={faFileUpload} />
-                <input type="file" onChange={uploadFile} />
+                <input ref={fileInput} type="file" onChange={uploadFile} />
             </label>
 
             {isUploading && <Toast fileName={fileName} progress={progress} />}

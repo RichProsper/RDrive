@@ -19,18 +19,57 @@
             background-color: var(--col-3rd-5);
         }
     }
-    & .signout {
-        background: none;
-        border: none;
+    & .user {
+        position: relative;
+        line-height: var(--NavHeight);
         cursor: pointer;
         color: inherit;
-        font-size: inherit;
+        font-size: 2rem;
         padding: 0 2.4rem;
         transition: .2s;
 
         &:focus,
         &:hover {
             background-color: var(--col-3rd-5);
+        }
+        & .dropdown {
+            display: none;
+            position: absolute;
+            top: var(--NavHeight);
+            right: 0;
+            background-color: var(--col-3rd-5);
+            font-size: 1.4rem;
+            cursor: default;
+            border-bottom-left-radius: .5rem;
+            border-bottom-right-radius: .5rem;
+            overflow: hidden;
+
+            & * {
+                line-height: initial;
+                padding: .5rem 1.5rem;
+            }
+            & div {
+                border-bottom: .1rem solid var(--col-3rd-6);
+            }
+            & button {
+                background: none;
+                border: none;
+                color: inherit;
+                cursor: pointer;
+                font-size: 1.4rem;
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                &:focus,
+                &:hover {
+                    background-color: var(--col-3rd-7);
+                }
+            }
+        }
+        &:focus .dropdown,
+        &:hover .dropdown {
+            display: block;
         }
     }
 }

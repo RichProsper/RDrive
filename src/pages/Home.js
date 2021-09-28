@@ -36,10 +36,9 @@ export default function Home() {
 
 /*
     TO DO 
-    - Delete Folders & Files
-    - Update Folder & File names
     - Display Last Modified & Size colums for Folders & Files
-    - Display logged in user info
     - Display icon based on file extension
     - Redirect after Password Reset
+    - Delete Folders & Files
+    - Update Folder & File names
 */
