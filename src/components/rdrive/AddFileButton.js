@@ -30,6 +30,8 @@ export default function AddFileButton({ currentFolder }) {
         const file = e.target.files[0]
 
         if (!file) return
+        // Set file size limit to 5MB
+        if (file.size > 5 * 1024 * 1024) return
 
         let filePath = `/files/${currentUser.uid}/`
 
@@ -54,13 +56,15 @@ export default function AddFileButton({ currentFolder }) {
                 setTimeout(() => {
                     setIsUploading(false)
                     setFileName('')
-                }, 1000);
+                }, 1200);
             }
             else if (!isUploading) {
                 setIsUploading(true)
             }
         },
+        // On Error
         e => console.log(e),
+        // On Success
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then(url => {
                 const q = query(
@@ -75,6 +79,7 @@ export default function AddFileButton({ currentFolder }) {
 
                     if (existingFile) {
                         updateDoc(existingFile.ref, {
+                            size: file.size,
                             url,
                             modifiedAt: firestoreDb.getTimestamp()
                         })
@@ -82,6 +87,8 @@ export default function AddFileButton({ currentFolder }) {
                     else {
                         addDoc(firestoreDb.files, {
                             name: file.name,
+                            size: file.size,
+                            type: file.type,
                             url,
                             createdAt: firestoreDb.getTimestamp(),
                             modifiedAt: firestoreDb.getTimestamp(),

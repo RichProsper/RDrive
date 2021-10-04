@@ -39,8 +39,8 @@ export default function Home() {
 
 /*
     TO DO 
-    - Get File Sizes
-    - Display icon based on file extension
+    - Display Error message (Toast) on trying to upload a file that is too large
+    - Display icon based on file type
     - Update Folder & File names
     - Delete Folders & Files
     - Allow users to change color themes
