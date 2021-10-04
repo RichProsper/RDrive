@@ -7,6 +7,7 @@ import File from '../components/rdrive/File'
 import useFolder from '../components/hooks/useFolder'
 import { useParams } from 'react-router'
 import FolderPath from '../components/rdrive/FolderPath'
+import Heading from '../components/rdrive/Heading'
 
 export default function Home() {
     const { folderId } = useParams()
@@ -23,6 +24,8 @@ export default function Home() {
                 </div>
             </div>
 
+            <Heading />
+
             {childFolders.length > 0 && childFolders.map(childFolder => {
                 return <Folder key={childFolder.id} folder={childFolder} />
             })}
@@ -36,8 +39,9 @@ export default function Home() {
 
 /*
     TO DO 
-    - Display Last Modified & Size colums for Folders & Files
+    - Get File Sizes
     - Display icon based on file extension
-    - Delete Folders & Files
     - Update Folder & File names
+    - Delete Folders & Files
+    - Allow users to change color themes
 */

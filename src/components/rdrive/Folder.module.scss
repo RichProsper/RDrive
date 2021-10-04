@@ -1,21 +1,35 @@
 .Folder {
-    padding: 1rem;
+    padding: .8rem;
     margin: 1rem 2.4rem;
     border-radius: .5rem;
     border: .2rem solid var(--col-2nd-2);
-    display: block;
+    display: flex;
     color: inherit;
+    font-size: 1.3rem;
     text-decoration: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     transition: .2s;
 
     &:focus,
     &:hover {
         background-color: var(--col-2nd-2);
     }
-    & svg {
-        margin-right: .5rem;
+    & .w-60 {
+        display: block;
+        width: 60%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        
+        & svg {
+            margin-right: .5rem;
+        }
+    }
+    & .w-20 {
+        display: none;
+        width: 20%;
+
+        @media only screen and (min-width: 500px) {
+            display: block;
+        }
     }
 }
