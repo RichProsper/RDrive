@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder } from '@fortawesome/free-solid-svg-icons'
 
 export default function Folder({ folder }) {
-    const dArr = new Date(folder.modifiedAt.toDate()).toDateString().split(' ')
-    const d = dArr[2] + ' ' + dArr[1] + ' ' + dArr[3]
+    const dArr = folder.modifiedAt ?
+        new Date(folder.modifiedAt.toDate()).toDateString().split(' ') :
+        null
+    const d = dArr ? dArr[2] + ' ' + dArr[1] + ' ' + dArr[3] : ''
 
     return (
         <Link
