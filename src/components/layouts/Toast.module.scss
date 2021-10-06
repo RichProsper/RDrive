@@ -1,9 +1,8 @@
 .Toast {
     z-index: 1;
     position: fixed;
-    bottom: 50%;
+    bottom: 10rem;
     right: 2rem;
-    transform: translateY(50%);
     width: 12rem;
     font-size: 1.2rem;
     background-color: var(--col-2nd-3);
@@ -44,6 +43,5 @@
 
     @media only screen and (min-width: 600px ) and (min-height: 600px) {
         bottom: 2rem;
-        transform: none;
     }
 }
