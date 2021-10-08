@@ -7,6 +7,7 @@ import { addDoc, query, where, getDocs, updateDoc } from '@firebase/firestore'
 import firestoreDb, { storage } from '../../firebase'
 import useAuthCtx from '../../contexts/AuthContext'
 import Toast from '../layouts/Toast'
+import Alert from '../layouts/Alert'
 import { useState, useRef } from 'react'
 
 export default function AddFileButton({ currentFolder }) {
@@ -14,6 +15,7 @@ export default function AddFileButton({ currentFolder }) {
     const [isUploading, setIsUploading] = useState(false)
     const [fileName, setFileName] = useState('')
     const [progress, setProgress] = useState(0)
+    const [err, setErr] = useState('')
     const fileInput = useRef()
 
     /**
@@ -31,7 +33,10 @@ export default function AddFileButton({ currentFolder }) {
 
         if (!file) return
         // Set file size limit to 5MB
-        if (file.size > 5 * 1024 * 1024) return
+        if (file.size > 5 * 1024 * 1024) {
+            setErr('File size limit of 5MB')
+            return
+        }
 
         let filePath = `/files/${currentUser.uid}/`
 
@@ -108,12 +113,14 @@ export default function AddFileButton({ currentFolder }) {
                 className={classes.AddFile}
                 title='Add New File'
                 onKeyPress={openFileInput}
+                onClick={() => setErr('')}
             >
                 <FontAwesomeIcon icon={faFileUpload} />
                 <input ref={fileInput} type="file" onChange={uploadFile} />
             </label>
 
             {isUploading && <Toast fileName={fileName} progress={progress} />}
+            {err && <Alert message={err} setErr={setErr} />}
         </>
     )
 }

@@ -39,9 +39,10 @@ export default function Home() {
 
 /*
     TO DO 
-    - Display Error message (Toast) on trying to upload a file that is too large
     - Display icon based on file type
-    - Update Folder & File names
-    - Delete Folders & Files
+    - Update File names
+    - Delete Files
+    - Update Folder names
+    - Delete Folders
     - Allow users to change color themes
 */
