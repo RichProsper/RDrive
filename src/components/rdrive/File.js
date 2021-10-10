@@ -32,8 +32,24 @@ const FILE_TYPES = {
     }
 }
 
+const FILE_COLORS = {
+    VIDEO: { color: '#2478ff' },
+    IMAGE: { color: '#0a68ff' },
+    AUDIO: { color: '#c478ff' },
+    TEXT: {color: 'b3b3b3' },
+    CODE: { color: '#ff5757' },
+    WORD: { color: '#5797ff' },
+    POWERPOINT: { color: '#ff795e' },
+    PDF: { color: '#ff6363' },
+    EXCEL: { color: '#63ff9f' },
+    ARCHIVE: { color: '#ffe563' },
+    CSV: { color: '#94ffbd' },
+    DEFAULT: { color: '#e6e6e6' }
+}
+
 export default function File({ file }) {
     const [fileIcon, setFileIcon] = useState(null)
+    const [fileColor, setFileColor] = useState(null)
 
     const dArr = file.modifiedAt ? new Date(file.modifiedAt.toDate()).toDateString().split(' ') : null
     const d = dArr ? dArr[2] + ' ' + dArr[1] + ' ' + dArr[3] : ''
@@ -58,6 +74,7 @@ export default function File({ file }) {
                     return faFileVideo
                 })().then(icon => setFileIcon(icon))
 
+                setFileColor(FILE_COLORS.VIDEO)
                return
 
             case FILE_TYPES.IMAGE :
@@ -66,6 +83,7 @@ export default function File({ file }) {
                     return faFileImage
                 })().then(icon => setFileIcon(icon))
 
+                setFileColor(FILE_COLORS.IMAGE)
                 return
 
             case FILE_TYPES.AUDIO :
@@ -74,6 +92,7 @@ export default function File({ file }) {
                     return faFileAudio
                 })().then(icon => setFileIcon(icon))
 
+                setFileColor(FILE_COLORS.AUDIO)
                 return
 
             
@@ -86,6 +105,7 @@ export default function File({ file }) {
                             return faFileAlt
                         })().then(icon => setFileIcon(icon))
         
+                        setFileColor(FILE_COLORS.TEXT)
                        return
 
                     case FILE_TYPES.TEXT_TYPES.CODE_1 :
@@ -96,6 +116,7 @@ export default function File({ file }) {
                             return faFileCode
                         })().then(icon => setFileIcon(icon))
         
+                        setFileColor(FILE_COLORS.CODE)
                        return
 
                     default :
@@ -114,6 +135,7 @@ export default function File({ file }) {
                             return faFileWord
                         })().then(icon => setFileIcon(icon))
 
+                        setFileColor(FILE_COLORS.WORD)
                         return
 
                     case FILE_TYPES.APPLICATION_TYPES.POWERPOINT_1 :
@@ -124,7 +146,8 @@ export default function File({ file }) {
                             return faFilePowerpoint
                         })().then(icon => setFileIcon(icon))
 
-                    return
+                        setFileColor(FILE_COLORS.POWERPOINT)
+                        return
 
                     case FILE_TYPES.APPLICATION_TYPES.PDF :
                         (async () => {
@@ -132,7 +155,8 @@ export default function File({ file }) {
                             return faFilePdf
                         })().then(icon => setFileIcon(icon))
 
-                    return
+                        setFileColor(FILE_COLORS.PDF)
+                        return
 
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_1 :
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_2 :
@@ -143,6 +167,7 @@ export default function File({ file }) {
                             return faFileExcel
                         })().then(icon => setFileIcon(icon))
 
+                        setFileColor(FILE_COLORS.EXCEL)
                         return
 
                     case FILE_TYPES.APPLICATION_TYPES.ARCHIVE_1 :
@@ -153,7 +178,8 @@ export default function File({ file }) {
                             return faFileArchive
                         })().then(icon => setFileIcon(icon))
 
-                    return
+                        setFileColor(FILE_COLORS.ARCHIVE)
+                        return
 
                     case FILE_TYPES.APPLICATION_TYPES.CSV :
                         (async () => {
@@ -161,12 +187,14 @@ export default function File({ file }) {
                             return faFileCsv
                         })().then(icon => setFileIcon(icon))
 
-                    return
+                        setFileColor(FILE_COLORS.CSV)
+                        return
 
                     default :
                 }
                 
                 break
+                // End of case FILE_TYPES.APPLICATION
     
 
             default :
@@ -175,6 +203,7 @@ export default function File({ file }) {
                     return faFile
                 })().then(icon => setFileIcon(icon))
 
+                setFileColor(FILE_COLORS.DEFAULT)
                 return
         }
     }, [file.type])
@@ -187,7 +216,7 @@ export default function File({ file }) {
             className={classes.File}
         >
             <span className={classes['w-60']}>
-                {fileIcon && <FontAwesomeIcon icon={fileIcon} />} {file.name}
+                {fileIcon && <FontAwesomeIcon icon={fileIcon} style={fileColor} />} {file.name}
             </span>
             <span className={classes['w-20']}>{d}</span>
             <span className={classes['w-20']}>{formatSize(file.size)}</span>

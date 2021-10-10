@@ -39,10 +39,8 @@ export default function Home() {
 
 /*
     TO DO 
-    - Display icon based on file type
     - Update File names
     - Delete Files
     - Update Folder names
     - Delete Folders
-    - Allow users to change color themes
 */
