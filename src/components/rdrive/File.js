@@ -70,7 +70,7 @@ export default function File({ file }) {
         switch (type[0]) {
             case FILE_TYPES.VIDEO :
                 (async () => {
-                    const { faFileVideo } = await import('@fortawesome/free-solid-svg-icons')
+                    const { faFileVideo } = await import('@fortawesome/free-regular-svg-icons')
                     return faFileVideo
                 })().then(icon => setFileIcon(icon))
 
@@ -79,7 +79,7 @@ export default function File({ file }) {
 
             case FILE_TYPES.IMAGE :
                 (async () => {
-                    const { faFileImage } = await import('@fortawesome/free-solid-svg-icons')
+                    const { faFileImage } = await import('@fortawesome/free-regular-svg-icons')
                     return faFileImage
                 })().then(icon => setFileIcon(icon))
 
@@ -88,7 +88,7 @@ export default function File({ file }) {
 
             case FILE_TYPES.AUDIO :
                 (async () => {
-                    const { faFileAudio } = await import('@fortawesome/free-solid-svg-icons')
+                    const { faFileAudio } = await import('@fortawesome/free-regular-svg-icons')
                     return faFileAudio
                 })().then(icon => setFileIcon(icon))
 
@@ -101,7 +101,7 @@ export default function File({ file }) {
                 switch (type[1]) {
                     case FILE_TYPES.TEXT_TYPES.PLAIN :
                         (async () => {
-                            const { faFileAlt } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFileAlt } = await import('@fortawesome/free-regular-svg-icons')
                             return faFileAlt
                         })().then(icon => setFileIcon(icon))
         
@@ -112,7 +112,7 @@ export default function File({ file }) {
                     case FILE_TYPES.TEXT_TYPES.CODE_2 :
                     case FILE_TYPES.TEXT_TYPES.CODE_3 :
                         (async () => {
-                            const { faFileCode } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFileCode } = await import('@fortawesome/free-regular-svg-icons')
                             return faFileCode
                         })().then(icon => setFileIcon(icon))
         
@@ -131,7 +131,7 @@ export default function File({ file }) {
                     case FILE_TYPES.APPLICATION_TYPES.WORD_1 :
                     case FILE_TYPES.APPLICATION_TYPES.WORD_2 :
                         (async () => {
-                            const { faFileWord } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFileWord } = await import('@fortawesome/free-regular-svg-icons')
                             return faFileWord
                         })().then(icon => setFileIcon(icon))
 
@@ -142,7 +142,7 @@ export default function File({ file }) {
                     case FILE_TYPES.APPLICATION_TYPES.POWERPOINT_2 :
                     case FILE_TYPES.APPLICATION_TYPES.POWERPOINT_3 :
                         (async () => {
-                            const { faFilePowerpoint } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFilePowerpoint } = await import('@fortawesome/free-regular-svg-icons')
                             return faFilePowerpoint
                         })().then(icon => setFileIcon(icon))
 
@@ -151,7 +151,7 @@ export default function File({ file }) {
 
                     case FILE_TYPES.APPLICATION_TYPES.PDF :
                         (async () => {
-                            const { faFilePdf } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFilePdf } = await import('@fortawesome/free-regular-svg-icons')
                             return faFilePdf
                         })().then(icon => setFileIcon(icon))
 
@@ -163,7 +163,7 @@ export default function File({ file }) {
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_3 :
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_4 :
                         (async () => {
-                            const { faFileExcel } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFileExcel } = await import('@fortawesome/free-regular-svg-icons')
                             return faFileExcel
                         })().then(icon => setFileIcon(icon))
 
@@ -174,7 +174,7 @@ export default function File({ file }) {
                     case FILE_TYPES.APPLICATION_TYPES.ARCHIVE_2 :
                     case FILE_TYPES.APPLICATION_TYPES.ARCHIVE_3 :
                         (async () => {
-                            const { faFileArchive } = await import('@fortawesome/free-solid-svg-icons')
+                            const { faFileArchive } = await import('@fortawesome/free-regular-svg-icons')
                             return faFileArchive
                         })().then(icon => setFileIcon(icon))
 
