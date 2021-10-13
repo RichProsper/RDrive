@@ -50,7 +50,6 @@ const FILE_COLORS = {
 export default function File({ file }) {
     const [fileIcon, setFileIcon] = useState(null)
     const [fileColor, setFileColor] = useState(null)
-
     const dArr = file.modifiedAt ? new Date(file.modifiedAt.toDate()).toDateString().split(' ') : null
     const d = dArr ? dArr[2] + ' ' + dArr[1] + ' ' + dArr[3] : ''
 
@@ -214,6 +213,9 @@ export default function File({ file }) {
             target="_blank"
             rel="noopener noreferrer"
             className={classes.File}
+            data-ctx-menu-opener
+            data-type="file"
+            data-id={file.id}
         >
             <span className={classes['w-60']}>
                 {fileIcon && <FontAwesomeIcon icon={fileIcon} style={fileColor} />} {file.name}

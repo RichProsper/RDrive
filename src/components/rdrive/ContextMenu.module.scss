@@ -1,0 +1,35 @@
+.ContextMenu {
+    position: fixed;
+    border-radius: 1rem;
+    box-shadow: 0 .2rem .6rem .2rem var(--col-1st-8),
+                0 -.2rem .6rem .2rem var(--col-1st-8);
+
+    .list {
+        border-radius: 1rem;
+        background-color: var(--col-1st-10);
+        list-style-type: none;
+        padding: 1rem 0;
+        width: 10rem;
+
+        & li button {
+            display: block;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: .5rem 1rem;
+            font-size: 1.3rem;
+            color: inherit;
+            cursor: pointer;
+            transition: .2s;
+
+            &:hover,
+            &:focus {
+                background-color: var(--col-1st-12);
+            }
+            & .delete {
+                margin-right: .25em;
+            }
+        }
+    }
+}

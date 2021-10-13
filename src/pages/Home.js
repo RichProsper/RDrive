@@ -8,6 +8,7 @@ import useFolder from '../components/hooks/useFolder'
 import { useParams } from 'react-router'
 import FolderPath from '../components/rdrive/FolderPath'
 import Heading from '../components/rdrive/Heading'
+import ContextMenu from '../components/rdrive/ContextMenu'
 
 export default function Home() {
     const { folderId } = useParams()
@@ -33,12 +34,15 @@ export default function Home() {
             {childFiles.length > 0 && childFiles.map(childFile => {
                 return <File key={childFile.id} file={childFile} />
             })}
+
+            <ContextMenu />
         </section>
     )
 }
 
 /*
     TO DO 
+    - Building the Context Menu
     - Update File names
     - Delete Files
     - Update Folder names
