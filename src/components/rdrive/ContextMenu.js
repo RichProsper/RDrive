@@ -52,17 +52,31 @@ function ContextMenu() {
         }, [show, item.type]
     )
 
+    const handleResize = useCallback(
+        () => {
+            if (show && item.type) {
+                setShow(false)
+                setItem({ type: null, id: null })
+            }
+        }, [show, item.type]
+    )
+
     useEffect(() => {
         document.addEventListener('contextmenu', handleContextMenu)
         document.addEventListener('click', handleClick)
+        window.addEventListener('resize', handleResize)
 
         return () => {
             document.removeEventListener('contextmenu', handleContextMenu)
             document.removeEventListener('click', handleClick)
+            window.removeEventListener('resize', handleResize)
         }
     })
 
     const positionContextMenu = () => {
+        const wBuff = 24
+        const hBuff = 10
+        const menu = { w: 100, h: 80 }
         let x = 0
         let y = 0
 
@@ -75,10 +89,10 @@ function ContextMenu() {
             y = anchorCoords.clientY + document.body.scrollTop + document.documentElement.scrollTop
         }
 
-        x = x / window.innerWidth * 100
-        y = y / window.innerHeight * 100
+        if ( (window.innerWidth - x) < (menu.w + wBuff) ) x -= menu.w
+        if ( (window.innerHeight - y) < (menu.h + hBuff) ) y -= menu.h
 
-        return { top: `${y}%`, left: `${x}%` }
+        return { top: `${y}px`, left: `${x}px` }
     }
 
     return (
