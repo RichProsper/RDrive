@@ -1,6 +1,6 @@
 import classes from './File.module.css'
 import FileIcon from './FileIcon'
-import { ITEM_TYPES } from '../hooks/useUpdateDelete'
+import { ITEM_TYPES } from './ContextMenu'
 
 export default function File({ file }) {
     const dArr = file.modifiedAt ? new Date(file.modifiedAt.toDate()).toDateString().split(' ') : null
