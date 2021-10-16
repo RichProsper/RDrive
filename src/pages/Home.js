@@ -42,9 +42,5 @@ export default function Home() {
 
 /*
     TO DO 
-    - Building the Context Menu
-    - Update File names
-    - Delete Files
-    - Update Folder names
     - Delete Folders
 */

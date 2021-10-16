@@ -98,7 +98,8 @@ export default function AddFileButton({ currentFolder }) {
                             createdAt: firestoreDb.getTimestamp(),
                             modifiedAt: firestoreDb.getTimestamp(),
                             folderId: currentFolder.id,
-                            userId: currentUser.uid
+                            userId: currentUser.uid,
+                            path: filePath
                         }).catch(e => console.log(e))        
                     }
                 })

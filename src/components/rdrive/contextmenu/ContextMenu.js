@@ -1,37 +1,45 @@
 import { useCallback, useState, useEffect } from 'react'
 import Menu from './Menu'
-import RenameModal from './RenameModal'
 import DeleteModal from './DeleteModal'
+import firestoreDb, { storage } from '../../../firebase'
+import { query, where, getDocs, deleteDoc } from '@firebase/firestore'
+import { ref, deleteObject } from '@firebase/storage'
+import useAuthCtx from '../../../contexts/AuthContext'
 
 export const ITEM_TYPES = { FOLDER: 'Folder', FILE: 'File' }
-export const ITEM_ACTIONS = { RENAME:'Rename', DELETE: 'Delete' }
 
 function ContextMenu() {
     const [anchorCoords, setAnchorCoords] = useState({ pageX: 0, pageY: 0, clientX: 0, clientY: 0 })
     const [show, setShow] = useState(false)
-    const [item, setItem] = useState({ type: null, id: null, name: null })
-    const [renameModal, setRenameModal] = useState(false)
+    const [item, setItem] = useState({ type: null, path: null, name: null })
     const [deleteModal, setDeleteModal] = useState(false)
-    const formId = "formRename"
+    const { currentUser } = useAuthCtx()
 
-    const openRenameModal = () => setRenameModal(true)
-    const closeRenameModal = () => setRenameModal(false)
     const openDeleteModal = () => setDeleteModal(true)
     const closeDeleteModal = () => setDeleteModal(false)
 
-    /**
-     * @param {SubmitEvent} e
-     */
-    const renameItem = e => {
-        e.preventDefault()
-
-        const form = document.querySelector(`#${formId}`)
-        console.log(form.rename.value)
-
-        closeRenameModal()
-    }
     const deleteItem = () => {
-        console.log(ITEM_ACTIONS.DELETE)
+        if (item.type === ITEM_TYPES.FILE) {
+            const q = query(
+                firestoreDb.files,
+                where('userId', '==', currentUser.uid),
+                where("path", "==", item.path)
+            )
+
+            getDocs(q).then(snapshot => {
+                const existingFile = snapshot.docs[0]
+
+                if (existingFile) {
+                    const fileRef = ref(storage, item.path)
+                    deleteObject(fileRef).catch(e => console.log(e))
+                    deleteDoc(existingFile.ref).catch(e => console.log(e))
+                }
+            })
+        }
+        else if (item.type === ITEM_TYPES.FOLDER) {
+
+        }
+
         closeDeleteModal()
     }
 
@@ -55,10 +63,12 @@ function ContextMenu() {
                     e.target :
                     e.target.parentElement
 
+                const path = elem.getAttribute('data-path')
+                const pathArr = path.split('/')
                 setItem({
                     type: elem.getAttribute('data-type'),
-                    id: elem.getAttribute('data-id'),
-                    name: elem.getAttribute('data-name')
+                    path,
+                    name: pathArr[pathArr.length - 1]
                 })
 
                 setShow(true)
@@ -122,22 +132,7 @@ function ContextMenu() {
 
     return (
         <>
-            {show && (
-                <Menu
-                    style={positionContextMenu()}
-                    openRenameModal={openRenameModal}
-                    openDeleteModal={openDeleteModal}
-                />
-            )}
-
-            {renameModal && (
-                <RenameModal
-                    closeModal={closeRenameModal}
-                    item={item}
-                    id={formId}
-                    renameItem={renameItem}
-                />
-            )}
+            {show &&  <Menu style={positionContextMenu()}  openDeleteModal={openDeleteModal} />}
 
             {deleteModal && (
                 <DeleteModal
