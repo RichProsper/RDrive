@@ -7,6 +7,11 @@ import firestoreDb from '../../firebase'
 import { addDoc } from '@firebase/firestore'
 import useAuthCtx from '../../contexts/AuthContext'
 import { ROOT_FOLDER } from '../hooks/useFolder'
+import Form from '../forms/Form'
+import Alert from '../forms/Alert'
+import Input from '../forms/Input'
+import ButtonGroup from '../forms/ButtonGroup'
+import Button from '../forms/Button'
 
 export default function AddFolderButton({ currentFolder }) {
     const [modal, setModal] = useState(false)
@@ -48,14 +53,29 @@ export default function AddFolderButton({ currentFolder }) {
             </button>
 
             {modal && (
-                <Modal
-                    closeModal={closeModal}
-                    headerText="Add New Folder"
-                    confirmBtnText="Add Folder"
-                    cancelBtnText="Cancel"
-                    formId={formId}
-                    addFolder={addFolder}
-                />
+                <Modal closeModal={closeModal} headerText="Add New Folder" >
+                    <Form id={formId} onSubmit={addFolder}>
+                        <Alert type="Error" />
+
+                        <Input
+                            name="folderName"
+                            type="text"
+                            placeholder="Folder Name *"
+                            autoFocus
+                            required
+                        />
+
+                        <ButtonGroup>
+                            <Button type="submit" className="confirm">
+                                Add Folder
+                            </Button>
+
+                            <Button type="button" className="cancel" onClick={closeModal}>
+                                Cancel
+                            </Button>
+                        </ButtonGroup>
+                    </Form>
+                </Modal>
             )}
         </>
     )
