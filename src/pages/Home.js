@@ -8,7 +8,7 @@ import useFolder from '../components/hooks/useFolder'
 import { useParams } from 'react-router'
 import FolderPath from '../components/rdrive/FolderPath'
 import Heading from '../components/rdrive/Heading'
-import ContextMenu from '../components/rdrive/ContextMenu'
+import ContextMenu from '../components/rdrive/contextmenu/ContextMenu'
 
 export default function Home() {
     const { folderId } = useParams()

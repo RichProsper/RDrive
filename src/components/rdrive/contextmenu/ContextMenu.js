@@ -1,14 +1,7 @@
-import classes from './ContextMenu.module.css'
 import { useCallback, useState, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt } from '@fortawesome/free-regular-svg-icons'
-import { faEdit } from '@fortawesome/free-regular-svg-icons'
-import Modal from '../layouts/Modal'
-import Form from '../forms/Form'
-import Alert from '../forms/Alert'
-import Input from '../forms/Input'
-import ButtonGroup from '../forms/ButtonGroup'
-import Button from '../forms/Button'
+import Menu from './Menu'
+import RenameModal from './RenameModal'
+import DeleteModal from './DeleteModal'
 
 export const ITEM_TYPES = { FOLDER: 'Folder', FILE: 'File' }
 export const ITEM_ACTIONS = { RENAME:'Rename', DELETE: 'Delete' }
@@ -130,69 +123,28 @@ function ContextMenu() {
     return (
         <>
             {show && (
-                <nav className={classes.ContextMenu} style={positionContextMenu()}>
-                    <ul className={classes.list} data-context-menu>
-                        <li>
-                            <button type="button" onClick={openRenameModal}>
-                                <FontAwesomeIcon icon={faEdit}/> Rename
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" onClick={openDeleteModal}>
-                                <FontAwesomeIcon icon={faTrashAlt} className={classes.delete} /> Delete
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
+                <Menu
+                    style={positionContextMenu()}
+                    openRenameModal={openRenameModal}
+                    openDeleteModal={openDeleteModal}
+                />
             )}
 
             {renameModal && (
-                <Modal
+                <RenameModal
                     closeModal={closeRenameModal}
-                    headerText={`Rename ${item.type}: ${item.name}`}
-                >
-                    <Form id={formId} onSubmit={renameItem}>
-                        <Alert type="Error" />
-
-                        <Input
-                            name="rename"
-                            type="text"
-                            placeholder={`Rename ${item.type} *`}
-                            autoFocus
-                            required
-                        />
-
-                        <ButtonGroup>
-                            <Button type="submit" className="confirm">
-                                Rename {item.type}
-                            </Button>
-
-                            <Button type="button" className="cancel" onClick={closeRenameModal}>
-                                Cancel
-                            </Button>
-                        </ButtonGroup>
-                    </Form>
-                </Modal>
-
+                    item={item}
+                    id={formId}
+                    renameItem={renameItem}
+                />
             )}
 
             {deleteModal && (
-                <Modal
+                <DeleteModal
                     closeModal={closeDeleteModal}
-                    headerText={`Delete ${item.type}: ${item.name}`}
-                >
-                    <p>Are you sure? This action cannot be reversed?</p>
-
-                    <ButtonGroup>
-                        <Button type="button" className="confirm" onClick={deleteItem}>
-                            Delete {item.type}
-                        </Button>
-
-                        <Button type="button" className="cancel" onClick={closeDeleteModal}>
-                            Cancel
-                        </Button>
-                    </ButtonGroup>
-                </Modal>
+                    item={item}
+                    deleteItem={deleteItem}
+                />
             )}
         </>
     )
