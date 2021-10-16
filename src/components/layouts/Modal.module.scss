@@ -55,43 +55,6 @@
         }
         & .body {
             padding: 1rem;
-
-            & .btns {
-                margin-top: 1rem;
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-
-                & button {
-                    cursor: pointer;
-                    margin: 1rem;
-                    background: none;
-                    border: .2rem solid;
-                    border-radius: .5rem;
-                    color: inherit;
-                    padding: .2rem 4rem;
-                    height: 100%;
-                    font-weight: 600;
-                    transition: .2s;
-
-                    &.confirm {
-                        border-color: var(--col-4th-1);
-
-                        &:hover,
-                        &:focus {
-                            color: var(--col-4th-1);
-                        }
-                    }
-                    &.cancel {
-                        border-color: var(--col-5th-1);
-
-                        &:hover,
-                        &:focus {
-                            color: var(--col-5th-1);
-                        }
-                    }
-                }
-            }
         }
     }
 

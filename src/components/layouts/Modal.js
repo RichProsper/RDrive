@@ -1,12 +1,7 @@
 import classes from './Modal.module.css'
 import { useRef } from 'react'
-import Form from '../forms/Form'
-import Input from '../forms/Input'
-import Alert from '../forms/Alert'
 
-export default function Modal({
-    closeModal, headerText, confirmBtnText, cancelBtnText, formId, addFolder
-}) {
+export default function Modal({ closeModal, headerText, children }) {
     const modalBg = useRef()
 
     /**
@@ -28,34 +23,7 @@ export default function Modal({
                 </div>
 
                 <div className={classes.body}>
-                    <Form id={formId} onSubmit={addFolder}>
-                        <Alert type="Error" />
-
-                        <Input
-                            name="folderName"
-                            type="text"
-                            placeholder="Folder Name *"
-                            autoFocus
-                            required
-                        />
-
-                        <div className={classes.btns}>
-                            <button 
-                                type="submit" 
-                                className={classes.confirm} 
-                            >
-                                {confirmBtnText ? confirmBtnText : 'Yes'}
-                            </button>
-
-                            <button 
-                                type="button" 
-                                className={classes.cancel}
-                                onClick={closeModal}
-                            >
-                                {cancelBtnText ? cancelBtnText : 'No'}
-                            </button>
-                        </div>
-                    </Form>
+                    {children}
                 </div>
             </div>
         </div>
