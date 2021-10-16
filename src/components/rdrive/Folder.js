@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import classes from './Folder.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolder } from '@fortawesome/free-solid-svg-icons'
+import { ITEM_TYPES } from './contextmenu/ContextMenu'
 
 export default function Folder({ folder }) {
     const dArr = folder.modifiedAt ?
@@ -13,6 +14,9 @@ export default function Folder({ folder }) {
         <Link
             to={`/folder/${folder.id}`}
             className={classes.Folder}
+            data-ctx-menu-opener
+            data-type={ITEM_TYPES.FOLDER}
+            data-name={folder.name}
         >
             <span className={classes['w-60']}>
                 <FontAwesomeIcon icon={faFolder} /> {folder.name}

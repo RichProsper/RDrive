@@ -63,12 +63,10 @@ function ContextMenu() {
                     e.target :
                     e.target.parentElement
 
-                const path = elem.getAttribute('data-path')
-                const pathArr = path.split('/')
                 setItem({
                     type: elem.getAttribute('data-type'),
-                    path,
-                    name: pathArr[pathArr.length - 1]
+                    path: elem.getAttribute('data-path'),
+                    name: elem.getAttribute('data-name')
                 })
 
                 setShow(true)

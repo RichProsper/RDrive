@@ -25,6 +25,7 @@ export default function File({ file }) {
             data-ctx-menu-opener
             data-type={ITEM_TYPES.FILE}
             data-path={file.path}
+            data-name={file.name}
         >
             <span className={classes['w-60']}>
                 <FileIcon fileType={file.type} /> {file.name}
