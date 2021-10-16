@@ -1,5 +1,6 @@
 import classes from './File.module.css'
 import FileIcon from './FileIcon'
+import { ITEM_TYPES } from '../hooks/useUpdateDelete'
 
 export default function File({ file }) {
     const dArr = file.modifiedAt ? new Date(file.modifiedAt.toDate()).toDateString().split(' ') : null
@@ -22,8 +23,9 @@ export default function File({ file }) {
             rel="noopener noreferrer"
             className={classes.File}
             data-ctx-menu-opener
-            data-type="file"
+            data-type={ITEM_TYPES.FILE}
             data-id={file.id}
+            data-name={file.name}
         >
             <span className={classes['w-60']}>
                 <FileIcon fileType={file.type} /> {file.name}
