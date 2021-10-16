@@ -24,6 +24,9 @@
                 font-size: 2rem;
                 line-height: 4rem;
                 padding: 0 1rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             & .close {
                 position: absolute;
