@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState, useEffect, useRef } from 'react'
 import Menu from './Menu'
 import DeleteModal from './DeleteModal'
 import firestoreDb, { storage } from '../../../firebase'
@@ -14,6 +14,7 @@ function ContextMenu() {
     const [item, setItem] = useState({ type: null, path: null, name: null, createdAt: null })
     const [deleteModal, setDeleteModal] = useState(false)
     const { currentUser } = useAuthCtx()
+    const touchstart = useRef(0)
 
     const openDeleteModal = () => setDeleteModal(true)
     const closeDeleteModal = () => setDeleteModal(false)
@@ -142,15 +143,74 @@ function ContextMenu() {
         [show]
     )
 
+    const isTouchEnabled = useCallback(
+        () => {
+            return 'ontouchstart' in window || 
+                    navigator.maxTouchPoints > 0 || 
+                    navigator.msMaxTouchPoints > 0
+        },
+        []
+    )
+
+    const handleTouchStart = useCallback( () => touchstart.current = Date.now(), [touchstart] )
+
+    const handleTouchEnd = useCallback(
+        /**
+         * @param {TouchEvent} e 
+         */
+        e => {
+            if (
+                e.target.hasAttribute('data-ctx-menu-opener') ||
+                e.target.parentElement.hasAttribute('data-ctx-menu-opener')
+            ) {
+                if (Date.now() - touchstart.current >= 600) {
+                    e.preventDefault()
+
+                    const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent
+                    const touch = evt.touches[0] || evt.changedTouches[0]
+                    
+                    setAnchorCoords({
+                        pageX: touch.pageX, pageY: touch.pageY,
+                        clientX: touch.clientX, clientY: touch.clientY
+                    })
+    
+                    const elem = e.target.hasAttribute('data-ctx-menu-opener') ?
+                        e.target :
+                        e.target.parentElement
+    
+                    setItem({
+                        type: elem.getAttribute('data-type'),
+                        path: elem.getAttribute('data-path'),
+                        name: elem.getAttribute('data-name'),
+                        createdAt: elem.getAttribute('data-created-at')
+                    })
+    
+                    setShow(true)
+                }
+            }
+        },
+        [touchstart]
+    )
+
     useEffect(() => {
         document.addEventListener('contextmenu', handleContextMenu)
         document.addEventListener('click', handleClick)
         window.addEventListener('resize', handleResize)
 
+        if (isTouchEnabled()) {
+            document.addEventListener('touchstart', handleTouchStart)
+            document.addEventListener('touchend', handleTouchEnd)
+        }
+
         return () => {
             document.removeEventListener('contextmenu', handleContextMenu)
             document.removeEventListener('click', handleClick)
             window.removeEventListener('resize', handleResize)
+
+            if (isTouchEnabled()) {
+                document.addEventListener('touchstart', handleTouchStart)
+                document.addEventListener('touchend', handleTouchEnd)
+            }
         }
     })
 
