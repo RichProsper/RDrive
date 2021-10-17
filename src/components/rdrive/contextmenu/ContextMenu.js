@@ -11,35 +11,82 @@ export const ITEM_TYPES = { FOLDER: 'Folder', FILE: 'File' }
 function ContextMenu() {
     const [anchorCoords, setAnchorCoords] = useState({ pageX: 0, pageY: 0, clientX: 0, clientY: 0 })
     const [show, setShow] = useState(false)
-    const [item, setItem] = useState({ type: null, path: null, name: null })
+    const [item, setItem] = useState({ type: null, path: null, name: null, createdAt: null })
     const [deleteModal, setDeleteModal] = useState(false)
     const { currentUser } = useAuthCtx()
 
     const openDeleteModal = () => setDeleteModal(true)
     const closeDeleteModal = () => setDeleteModal(false)
 
+    const deleteFile = path => {
+        const q = query(
+            firestoreDb.files,
+            where('userId', '==', currentUser.uid),
+            where("path", "==", path)
+        )
+
+        getDocs(q).then(snapshot => {
+            const existingFile = snapshot.docs[0]
+
+            if (existingFile) {
+                const fileRef = ref(storage, path)
+                deleteObject(fileRef).catch(e => console.log(e))
+                deleteDoc(existingFile.ref).catch(e => console.log(e))
+            }
+        })
+    }
+
+    const deleteFolder = (name, createdAt) => {
+        const q = query(
+            firestoreDb.folders,
+            where('userId', '==', currentUser.uid),
+            where('name', '==', name),
+            where('createdAt', '==', parseInt(createdAt))
+        )
+
+        getDocs(q).then(snapshot => {
+            const existingFolder = snapshot.docs[0]
+
+            if (existingFolder) {
+                const folder =  firestoreDb.getDocData(existingFolder)
+                
+                // Drill Down Through Child Folders
+                const qfolders = query(
+                    firestoreDb.folders,
+                    where('userId', '==', currentUser.uid),
+                    where('parentId', '==', folder.id)
+                )
+        
+                getDocs(qfolders).then(snapshot => {
+                    snapshot.forEach(doc => {
+                        const childFolder = firestoreDb.getDocData(doc)
+                        deleteFolder(childFolder.name, childFolder.createdAt)
+                    })
+                })
+
+                // Get Child Files And Delete Them 1 by 1
+                const qfiles = query(
+                    firestoreDb.files,
+                    where('userId', '==', currentUser.uid),
+                    where('folderId', '==', folder.id)
+                )
+        
+                getDocs(qfiles).then(snapshot => {
+                    snapshot.forEach(doc => {
+                        const childFile = firestoreDb.getDocData(doc)
+                        deleteFile(childFile.path)
+                    })
+                }) 
+                
+                // Finally Delete The Folder
+                deleteDoc(existingFolder.ref).catch(e => console.log(e))
+            }
+        })
+    }
+
     const deleteItem = () => {
-        if (item.type === ITEM_TYPES.FILE) {
-            const q = query(
-                firestoreDb.files,
-                where('userId', '==', currentUser.uid),
-                where("path", "==", item.path)
-            )
-
-            getDocs(q).then(snapshot => {
-                const existingFile = snapshot.docs[0]
-
-                if (existingFile) {
-                    const fileRef = ref(storage, item.path)
-                    deleteObject(fileRef).catch(e => console.log(e))
-                    deleteDoc(existingFile.ref).catch(e => console.log(e))
-                }
-            })
-        }
-        else if (item.type === ITEM_TYPES.FOLDER) {
-
-        }
-
+        if (item.type === ITEM_TYPES.FILE) deleteFile(item.path)
+        else if (item.type === ITEM_TYPES.FOLDER) deleteFolder(item.name, item.createdAt)
         closeDeleteModal()
     }
 
@@ -66,7 +113,8 @@ function ContextMenu() {
                 setItem({
                     type: elem.getAttribute('data-type'),
                     path: elem.getAttribute('data-path'),
-                    name: elem.getAttribute('data-name')
+                    name: elem.getAttribute('data-name'),
+                    createdAt: elem.getAttribute('data-created-at')
                 })
 
                 setShow(true)

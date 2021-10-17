@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, serverTimestamp } from 'firebase/firestore'
+import { getFirestore, collection } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 
@@ -18,7 +18,7 @@ const db = getFirestore(firebase)
 const firestoreDb = {
     folders: collection(db, "folders"),
     files: collection(db, "files"),
-    getTimestamp: serverTimestamp,
+    getTimestamp: Date.now,
     getDocData: doc => {
         return { id: doc.id, ...doc.data() }
     }

@@ -8,7 +8,7 @@ export default function DeleteModal({ closeModal, item, deleteItem }) {
             closeModal={closeModal}
             headerText={`Delete ${item.type}: ${item.name}`}
         >
-            <p>Are you sure? This action cannot be reversed?</p>
+            <p>Are you sure? This action cannot be reversed!</p>
 
             <ButtonGroup>
                 <Button type="button" className="confirm" onClick={deleteItem}>

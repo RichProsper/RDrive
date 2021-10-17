@@ -39,8 +39,3 @@ export default function Home() {
         </section>
     )
 }
-
-/*
-    TO DO 
-    - Delete Folders
-*/

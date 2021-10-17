@@ -38,7 +38,6 @@ export default function AddFolderButton({ currentFolder }) {
             name: form.folderName.value,
             userId: currentUser.uid,
             createdAt: firestoreDb.getTimestamp(),
-            modifiedAt: firestoreDb.getTimestamp(),
             parentId: currentFolder.id,
             path
         }).catch(e => console.log(e))

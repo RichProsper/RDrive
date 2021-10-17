@@ -3,7 +3,7 @@ import FileIcon from './FileIcon'
 import { ITEM_TYPES } from './contextmenu/ContextMenu'
 
 export default function File({ file }) {
-    const dArr = file.modifiedAt ? new Date(file.modifiedAt.toDate()).toDateString().split(' ') : null
+    const dArr = file.modifiedAt ? new Date(file.modifiedAt).toDateString().split(' ') : null
     const d = dArr ? dArr[2] + ' ' + dArr[1] + ' ' + dArr[3] : ''
 
     const formatSize = size => {
