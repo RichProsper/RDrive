@@ -29,9 +29,10 @@
                 text-overflow: ellipsis;
             }
             & .close {
+                margin: 0;
                 position: absolute;
                 top: -1.5rem;
-                right: -2.5rem;
+                right: -1.5rem;
                 width: 3rem;
                 height: 3rem;
                 border-radius: 50%;
