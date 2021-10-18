@@ -1,4 +1,4 @@
-import classes from './File.module.css'
+import classes from './FileFolder.module.css'
 import FileIcon from './FileIcon'
 import { ITEM_TYPES } from './contextmenu/ContextMenu'
 
@@ -21,7 +21,7 @@ export default function File({ file }) {
             href={file.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={classes.File}
+            className={classes.FileFolder}
             data-ctx-menu-opener
             data-type={ITEM_TYPES.FILE}
             data-path={file.path}
