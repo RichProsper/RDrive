@@ -106,9 +106,14 @@ export default function FileIcon({ fileType }) {
                        return
 
                     default :
+                        (async () => {
+                            const { faFile } = await import('@fortawesome/free-solid-svg-icons')
+                            return faFile
+                        })().then(icon => setFileIcon(icon))
+        
+                        setFileColor(FILE_COLORS.DEFAULT)
+                        return
                 }
-
-                break
 
             
             // Application Types
@@ -177,9 +182,14 @@ export default function FileIcon({ fileType }) {
                         return
 
                     default :
+                        (async () => {
+                            const { faFile } = await import('@fortawesome/free-solid-svg-icons')
+                            return faFile
+                        })().then(icon => setFileIcon(icon))
+        
+                        setFileColor(FILE_COLORS.DEFAULT)
+                        return
                 }
-                
-                break
                 // End of case FILE_TYPES.APPLICATION
     
 
