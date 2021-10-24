@@ -1,52 +1,56 @@
 .Layout {
-    padding: 0 5%;
-
-    & h1 {
-        text-align: center;
-        padding: 1.5rem 0;
-        letter-spacing: .2rem;
-    }
-    & .link {
-        position: relative;
-        color: inherit;
-        font-size: 2rem;
-        text-decoration: none;
-        margin: 0 .4rem;
-        padding: .2rem .4rem;
-        opacity: .75;
-        transition: .2s;
-
-        &::after {
-            content: '';
-            position: absolute;
-            left: .4rem;
-            pointer-events: none;
-            z-index: -1;
-            width: calc(100% - .8rem);
-            bottom: -.2rem;
-            height: .2rem;
-            background-color: var(--col-1st-5);
-            transition: .2s;
+    min-height: calc(100vh - var(--CopyrightHeight));
+    
+    .main {
+        padding: 0 5%;
+    
+        & h1 {
+            text-align: center;
+            padding: 1.5rem 0;
+            letter-spacing: .2rem;
         }
-        &:hover {
-            opacity: 1;
-            color: var(--col-3rd-2);
-
+        & .link {
+            position: relative;
+            color: inherit;
+            font-size: 2rem;
+            text-decoration: none;
+            margin: 0 .4rem;
+            padding: .2rem .4rem;
+            opacity: .75;
+            transition: .2s;
+    
             &::after {
-                background-color: var(--col-3rd-2);
+                content: '';
+                position: absolute;
+                left: .4rem;
+                pointer-events: none;
+                z-index: -1;
+                width: calc(100% - .8rem);
+                bottom: -.2rem;
+                height: .2rem;
+                background-color: var(--col-1st-5);
+                transition: .2s;
+            }
+            &:hover {
+                opacity: 1;
+                color: var(--col-3rd-2);
+    
+                &::after {
+                    background-color: var(--col-3rd-2);
+                }
             }
         }
-    }
-    & .auth {
-        margin-top: 1.5rem;
-        padding-top: 1rem;
-        border-top: .1rem solid var(--col-1st-4);
-    }
-
-    @media only screen and (min-width: 500px) {
-        padding: 0 10%;
-    }
-    @media only screen and (min-width: 900px) {
-        padding: 0 20%;
+        & .auth {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: .1rem solid var(--col-1st-4);
+        }
+    
+        @media only screen and (min-width: 500px) {
+            padding: 0 10%;
+        }
+        @media only screen and (min-width: 900px) {
+            padding: 0 20%;
+        }
     }
 }

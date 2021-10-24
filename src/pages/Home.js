@@ -15,7 +15,7 @@ export default function Home() {
     const { folder, childFolders, childFiles } = useFolder(folderId)
 
     return (
-        <section>
+        <section className={classes.Home}>
             <PrivateNav />
             <div className={classes.container}>
                 <FolderPath currentFolder={folder} />

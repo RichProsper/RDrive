@@ -7,6 +7,7 @@ import PrivateRoute from "./PrivateRoute"
 import PublicRoute from "./PublicRoute"
 import ResetPassword from "./pages/ResetPassword"
 import Layout from "./components/layouts/Layout";
+import Copyright from "./components/layouts/Copyright";
 
 export default function App() {
     return (
@@ -22,6 +23,8 @@ export default function App() {
                         <PublicRoute path="/reset-password" component={withRouter(ResetPassword)} />
                     </Layout>
                 </Switch>
+
+                <Copyright />
             </AllContexts>
         </Router>
     )

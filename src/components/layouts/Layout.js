@@ -3,11 +3,11 @@ import PublicNav from './PublicNav'
 
 export default function Layout({ children }) {
     return (
-        <>
+        <section className={classes.Layout}>
             <PublicNav />
-            <div className={classes.Layout}>
+            <main className={classes.main}>
                 {children}
-            </div>
-        </>
+            </main>
+        </section>
     )
 }
