@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 const FILE_TYPES = {
     VIDEO: 'video',
@@ -50,102 +50,77 @@ export default function FileIcon({ fileType }) {
     const [fileIcon, setFileIcon] = useState(null)
     const [fileColor, setFileColor] = useState(null)
 
+    const setDefault = useCallback(() => {
+        import('@fortawesome/free-solid-svg-icons')
+            .then(({ faFile }) => setFileIcon(faFile))
+        setFileColor(FILE_COLORS.DEFAULT)
+    }, [])
+
     useEffect(() => {
         const type = fileType.split("/")
 
         switch (type[0]) {
             case FILE_TYPES.VIDEO :
-                (async () => {
-                    const { faFileVideo } = await import('@fortawesome/free-regular-svg-icons')
-                    return faFileVideo
-                })().then(icon => setFileIcon(icon))
-
+                import('@fortawesome/free-regular-svg-icons')
+                    .then(({ faFileVideo }) => setFileIcon(faFileVideo))
                 setFileColor(FILE_COLORS.VIDEO)
-               return
+                return
 
             case FILE_TYPES.IMAGE :
-                (async () => {
-                    const { faFileImage } = await import('@fortawesome/free-regular-svg-icons')
-                    return faFileImage
-                })().then(icon => setFileIcon(icon))
-
+                import('@fortawesome/free-regular-svg-icons')
+                    .then(({ faFileImage }) => setFileIcon(faFileImage))
                 setFileColor(FILE_COLORS.IMAGE)
                 return
 
             case FILE_TYPES.AUDIO :
-                (async () => {
-                    const { faFileAudio } = await import('@fortawesome/free-regular-svg-icons')
-                    return faFileAudio
-                })().then(icon => setFileIcon(icon))
-
+                import('@fortawesome/free-regular-svg-icons')
+                    .then(({ faFileAudio }) => setFileIcon(faFileAudio))
                 setFileColor(FILE_COLORS.AUDIO)
                 return
 
-            
             // Text Types
             case FILE_TYPES.TEXT :
                 switch (type[1]) {
                     case FILE_TYPES.TEXT_TYPES.PLAIN :
-                        (async () => {
-                            const { faFileAlt } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFileAlt
-                        })().then(icon => setFileIcon(icon))
-        
+                        import('@fortawesome/free-regular-svg-icons')
+                            .then(({ faFileAlt }) => setFileIcon(faFileAlt))
                         setFileColor(FILE_COLORS.TEXT)
                        return
 
                     case FILE_TYPES.TEXT_TYPES.CODE_1 :
                     case FILE_TYPES.TEXT_TYPES.CODE_2 :
                     case FILE_TYPES.TEXT_TYPES.CODE_3 :
-                        (async () => {
-                            const { faFileCode } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFileCode
-                        })().then(icon => setFileIcon(icon))
-        
+                        import('@fortawesome/free-regular-svg-icons')
+                            .then(({ faFileCode }) => setFileIcon(faFileCode))
                         setFileColor(FILE_COLORS.CODE)
                        return
 
                     default :
-                        (async () => {
-                            const { faFile } = await import('@fortawesome/free-solid-svg-icons')
-                            return faFile
-                        })().then(icon => setFileIcon(icon))
-        
-                        setFileColor(FILE_COLORS.DEFAULT)
+                        setDefault()
                         return
                 }
 
-            
             // Application Types
             case FILE_TYPES.APPLICATION :
                 switch (type[1]) {
                     case FILE_TYPES.APPLICATION_TYPES.WORD_1 :
                     case FILE_TYPES.APPLICATION_TYPES.WORD_2 :
-                        (async () => {
-                            const { faFileWord } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFileWord
-                        })().then(icon => setFileIcon(icon))
-
+                        import('@fortawesome/free-regular-svg-icons')
+                            .then(({ faFileWord }) => setFileIcon(faFileWord))
                         setFileColor(FILE_COLORS.WORD)
                         return
 
                     case FILE_TYPES.APPLICATION_TYPES.POWERPOINT_1 :
                     case FILE_TYPES.APPLICATION_TYPES.POWERPOINT_2 :
                     case FILE_TYPES.APPLICATION_TYPES.POWERPOINT_3 :
-                        (async () => {
-                            const { faFilePowerpoint } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFilePowerpoint
-                        })().then(icon => setFileIcon(icon))
-
+                        import('@fortawesome/free-regular-svg-icons')
+                            .then(({ faFilePowerpoint }) => setFileIcon(faFilePowerpoint))
                         setFileColor(FILE_COLORS.POWERPOINT)
                         return
 
                     case FILE_TYPES.APPLICATION_TYPES.PDF :
-                        (async () => {
-                            const { faFilePdf } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFilePdf
-                        })().then(icon => setFileIcon(icon))
-
+                        import('@fortawesome/free-regular-svg-icons')
+                           .then(({ faFilePdf }) => setFileIcon(faFilePdf))
                         setFileColor(FILE_COLORS.PDF)
                         return
 
@@ -153,56 +128,36 @@ export default function FileIcon({ fileType }) {
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_2 :
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_3 :
                     case FILE_TYPES.APPLICATION_TYPES.EXCEL_4 :
-                        (async () => {
-                            const { faFileExcel } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFileExcel
-                        })().then(icon => setFileIcon(icon))
-
+                        import('@fortawesome/free-regular-svg-icons')
+                            .then(({ faFileExcel }) => setFileIcon(faFileExcel))
                         setFileColor(FILE_COLORS.EXCEL)
                         return
 
                     case FILE_TYPES.APPLICATION_TYPES.ARCHIVE_1 :
                     case FILE_TYPES.APPLICATION_TYPES.ARCHIVE_2 :
                     case FILE_TYPES.APPLICATION_TYPES.ARCHIVE_3 :
-                        (async () => {
-                            const { faFileArchive } = await import('@fortawesome/free-regular-svg-icons')
-                            return faFileArchive
-                        })().then(icon => setFileIcon(icon))
-
+                        import('@fortawesome/free-regular-svg-icons')
+                            .then(({ faFileArchive }) => setFileIcon(faFileArchive))
                         setFileColor(FILE_COLORS.ARCHIVE)
                         return
 
                     case FILE_TYPES.APPLICATION_TYPES.CSV :
-                        (async () => {
-                            const { faFileCsv } = await import('@fortawesome/free-solid-svg-icons')
-                            return faFileCsv
-                        })().then(icon => setFileIcon(icon))
-
+                        import('@fortawesome/free-solid-svg-icons')
+                            .then(({ faFileCsv }) => setFileIcon(faFileCsv))
                         setFileColor(FILE_COLORS.CSV)
                         return
 
                     default :
-                        (async () => {
-                            const { faFile } = await import('@fortawesome/free-solid-svg-icons')
-                            return faFile
-                        })().then(icon => setFileIcon(icon))
-        
-                        setFileColor(FILE_COLORS.DEFAULT)
+                        setDefault()
                         return
                 }
                 // End of case FILE_TYPES.APPLICATION
     
-
             default :
-                (async () => {
-                    const { faFile } = await import('@fortawesome/free-solid-svg-icons')
-                    return faFile
-                })().then(icon => setFileIcon(icon))
-
-                setFileColor(FILE_COLORS.DEFAULT)
+                setDefault()
                 return
         }
-    }, [fileType])
+    }, [fileType, setDefault])
 
     return (
         <>
