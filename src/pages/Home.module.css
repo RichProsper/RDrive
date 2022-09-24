@@ -1,1 +1,1 @@
-.Home{min-height:calc(100vh - var(--CopyrightHeight))}.Home .container{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding:2rem 2.4rem}.Home .container .btns button{margin-right:1rem}
+.Home{min-height:100vh}.Home .container{display:flex;justify-content:space-between;align-items:center;padding:2rem 2.4rem}.Home .container .btns button{margin-right:1rem}

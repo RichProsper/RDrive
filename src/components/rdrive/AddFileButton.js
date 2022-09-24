@@ -18,10 +18,7 @@ export default function AddFileButton({ currentFolder }) {
     const [err, setErr] = useState('')
     const fileInput = useRef()
 
-    /**
-     * @param {KeyboardEvent} e 
-     */
-    const openFileInput = e => {
+    const openFileInput = () => {
         fileInput.current.click()
     }
 
@@ -68,7 +65,7 @@ export default function AddFileButton({ currentFolder }) {
             }
         },
         // On Error
-        e => console.log(e),
+        e => console.error(e),
         // On Success
         () => {
             getDownloadURL(uploadTask.snapshot.ref).then(url => {
@@ -105,7 +102,7 @@ export default function AddFileButton({ currentFolder }) {
                 })
             })
         })
-    }
+    } // uploadFile()
 
     return (
         <>

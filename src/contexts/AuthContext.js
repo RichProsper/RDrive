@@ -66,7 +66,7 @@ export const AuthContextProvider = ({ children }) => {
             }
             else {
                 setErrMsgSignUp('Sign Up Failed!')
-                console.log(e)
+                console.error(e)
             }
         }
 
@@ -96,7 +96,7 @@ export const AuthContextProvider = ({ children }) => {
 
                 default:
                     setErrMsgSignIn('Sign In failed!')
-                    console.log(e)
+                    console.error(e)
             }
         }
 
@@ -110,7 +110,7 @@ export const AuthContextProvider = ({ children }) => {
             history.push('/signin')
         }
         catch(e) {
-            console.log(e)
+            console.error(e)
         }
 
         setIsLoading(false)
@@ -137,7 +137,7 @@ export const AuthContextProvider = ({ children }) => {
             }
             else {
                 setErrMsgResetPass('Reset Password Failed!')
-                console.log(e)
+                console.error(e)
             }
         }
 
