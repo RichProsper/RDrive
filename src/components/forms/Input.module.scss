@@ -3,6 +3,7 @@
     margin-bottom: 3.2rem;
 
     & input {
+        color-scheme: dark;
         height: 4rem;
         display: block;
         width: 100%;
@@ -16,7 +17,7 @@
         &:-webkit-autofill,
         &:-webkit-autofill:hover,
         &:-webkit-autofill:focus {
-            box-shadow: 0 0 0 5rem var(--col-1st-2) inset;
+            box-shadow: 0 0 0 5rem hsl(0, 0%, 20%) inset;
             -webkit-text-fill-color: var(--col-1st-1);
         }
         &::placeholder {

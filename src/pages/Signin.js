@@ -50,14 +50,14 @@ export default function Signin() {
                 />
 
                 <SubmitButton text='Sign In' />
-            </Form>
 
-            <p className={classes.auth}>
-                Already have an account?<Link to="/signup" className={classes.link}>Sign Up</Link>
-            </p>
-            <p className={classes.auth}>
-                Forgot Password? Click<Link to="/reset-password" className={classes.link}>Here</Link>to reset.
-            </p>
+                <p className={classes.auth}>
+                    Already have an account?<Link to="/signup" className={classes.link}>Sign Up</Link>
+                </p>
+                <p className={classes.auth}>
+                    Forgot Password? Click<Link to="/reset-password" className={classes.link}>Here</Link>to reset.
+                </p>
+            </Form>
 
             {isLoading && <LoadingOverlay />}
         </section>

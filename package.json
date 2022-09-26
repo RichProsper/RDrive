@@ -1,7 +1,8 @@
 {
   "name": "rdrive",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "private": true,
+  "homepage": "https://relaxed-gates-05f280.netlify.app/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",

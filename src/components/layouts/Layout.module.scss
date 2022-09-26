@@ -1,15 +1,38 @@
 .Layout {
-    min-height: 100vh;
+    height: 100vh;
     
     .main {
+        position: relative;
+        height: calc(100% - var(--NavHeight));
         padding: 0 5%;
     
-        & h1 {
+        .banner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(../../../media/Background-sm.webp);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: 25% bottom;
+            filter: brightness(50%);
+            z-index: -1;
+    
+            @media only screen and (min-width: 600px) {
+                background-image: url(../../../media/Background-md.webp);
+                background-position: 20% bottom;
+            }
+            @media only screen and (min-width: 900px) {
+                background-image: url(../../../media/Background-lg.webp);
+            }
+        }
+        h1 {
             text-align: center;
             padding: 1.5rem 0;
             letter-spacing: .2rem;
         }
-        & .link {
+        .link {
             position: relative;
             color: inherit;
             font-size: 2rem;
@@ -24,7 +47,6 @@
                 position: absolute;
                 left: .4rem;
                 pointer-events: none;
-                z-index: -1;
                 width: calc(100% - .8rem);
                 bottom: -.2rem;
                 height: .2rem;
@@ -40,7 +62,7 @@
                 }
             }
         }
-        & .auth {
+        .auth {
             margin-top: 1.5rem;
             padding-top: 1rem;
             border-top: .1rem solid var(--col-1st-4);

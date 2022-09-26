@@ -7,6 +7,7 @@ import Signin from "./pages/Signin";
 import AllContexts from "./contexts/AllContexts"
 import PrivateRoute from "./PrivateRoute"
 import PublicRoute from "./PublicRoute"
+import ErrorRoute from "./ErrorRoute";
 import ResetPassword from "./pages/ResetPassword"
 import Layout from "./components/layouts/Layout";
 
@@ -23,6 +24,8 @@ export default function App() {
                         <PublicRoute path="/signup" component={withRouter(Signup)} />
                         <PublicRoute path="/signin" component={withRouter(Signin)} />
                         <PublicRoute path="/reset-password" component={withRouter(ResetPassword)} />
+                        {/* Catches all the invalid URLs and redirects to "/signin" */}
+                        <ErrorRoute />
                     </Layout>
                 </Switch>
             </AllContexts>

@@ -59,11 +59,11 @@ export default function Signup() {
                 />
 
                 <SubmitButton text='Sign Up' />
-            </Form>
 
-            <p className={classes.auth}>
-                Already have an account? <Link to="/signin" className={classes.link}>Sign In</Link>
-            </p>
+                <p className={classes.auth}>
+                    Already have an account? <Link to="/signin" className={classes.link}>Sign In</Link>
+                </p>
+            </Form>
 
             {isLoading && <LoadingOverlay />}
         </section>

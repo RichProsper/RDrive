@@ -48,11 +48,11 @@ export default function ResetPassword() {
                 />
 
                 <SubmitButton text='Reset Password' />
-            </Form>
 
-            <p className={classes.auth}>
-                Ready to signin?<Link to="/signin" className={classes.link}>Sign In</Link>
-            </p>
+                <p className={classes.auth}>
+                    Ready to signin?<Link to="/signin" className={classes.link}>Sign In</Link>
+                </p>
+            </Form>
 
             {isLoading && <LoadingOverlay />}
         </section>
