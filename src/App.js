@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, withRouter, Switch } from "react-router-dom"
+import { Redirect, Route } from "react-router";
+import Landing from "./pages/Landing";
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
 import Signin from "./pages/Signin";
@@ -13,7 +15,8 @@ export default function App() {
         <Router>
             <AllContexts>                                    
                 <Switch> {/* Switch Component ensures only one page is shown at a time */}
-                    <PrivateRoute exact path="/" component={withRouter(Home)} />
+                    <PublicRoute exact path="/" component={withRouter(Landing)} />
+                    <PrivateRoute path="/home" component={withRouter(Home)} />
                     <PrivateRoute exact path="/folder/:folderId" component={withRouter(Home)} />
 
                     <Layout>
