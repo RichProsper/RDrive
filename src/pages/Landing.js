@@ -18,7 +18,7 @@ export default function Landing() {
                 </div>
             </div>
             <footer className={classes.attribution}>
-                Photo by <strong><a target="blank_" href="https://www.pexels.com/@olly/">Andrea Piacquadio</a></strong> from <strong><a target="blank_" href="https://www.pexels.com/photo/pondering-female-secretary-picking-folder-in-workplace-3791242/">Pexels</a></strong>
+                Photo by <strong><a target="blank_" rel="noopener" href="https://www.pexels.com/@olly/">Andrea Piacquadio</a></strong> from <strong><a target="blank_" rel="noopener" href="https://www.pexels.com/photo/pondering-female-secretary-picking-folder-in-workplace-3791242/">Pexels</a></strong>
             </footer>
         </section>
     )
