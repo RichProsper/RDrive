@@ -26,7 +26,7 @@ export default function Signin() {
     }    
 
     return (
-        <section>
+        <>
             <h1>Sign In</h1>
 
             <Form id={formId} onSubmit={submitForm}>
@@ -60,6 +60,6 @@ export default function Signin() {
             </Form>
 
             {isLoading && <LoadingOverlay />}
-        </section>
+        </>
     )
 }
