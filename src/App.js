@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, withRouter, Switch } from "react-router-dom"
-import { Redirect, Route } from "react-router";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home"
 import Signup from "./pages/Signup"
